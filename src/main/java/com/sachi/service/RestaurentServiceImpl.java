@@ -63,10 +63,6 @@ public class RestaurentServiceImpl implements RestaurentService{
 		if(restaurent.getImages()!=null) {
 			restaurent.setImages(updaredRestaurent.getImages());
 		}
-		
-        
-        
-        
         return restaurentRepository.save(restaurent);
 	}
 
@@ -126,7 +122,7 @@ public class RestaurentServiceImpl implements RestaurentService{
 	        user.getFavorites().add(restaurent);  // Add it if not in favorites
 	    }
 
-	    // Save the updated user entity
+	    // Save the updated user entity  
 	    userRepository.save(user);
 
 	    // Return the DTO instead of the Restaurent
