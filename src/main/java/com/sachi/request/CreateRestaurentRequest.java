@@ -1,9 +1,14 @@
 package com.sachi.request;
 
 import java.util.List;
-
 import com.sachi.Model.Address;
 import com.sachi.Model.ContactInformation;
+
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor
+@AllArgsConstructor
 
 public class CreateRestaurentRequest {
 	private Long id;

@@ -105,29 +105,33 @@ public class RestaurentServiceImpl implements RestaurentService{
 
 	@Override
 	public RestaurantDto addToFavorites(Long restaurentId, User user) throws Exception {
-	    // Find the restaurent by its ID
+	    // Find the restaurant by its ID
 	    Restaurent restaurent = findRestaurentById(restaurentId);
 
-	    // Create a DTO for the restaurent
+	    // Convert Restaurent to RestaurantDto
 	    RestaurantDto dto = new RestaurantDto();
 	    dto.setDescription(restaurent.getDescription());
 	    dto.setId(restaurent.getId());
 	    dto.setImages(restaurent.getImages());
 	    dto.setTitle(restaurent.getName());
 
-	    // Check if the user already has the restaurent in their favorites
-	    if (user.getFavorites().contains(restaurent)) {
-	        user.getFavorites().remove(restaurent);  // Remove it if already in favorites
+	    // Check if the user's favorites already contain the restaurant (using DTO comparison)
+	    List<RestaurantDto> favorites = user.getFavorites();
+	    
+	    boolean exists = favorites.stream().anyMatch(fav -> fav.getId().equals(restaurent.getId()));
+
+	    if (exists) {
+	        favorites.removeIf(fav -> fav.getId().equals(restaurent.getId())); // Remove if exists
 	    } else {
-	        user.getFavorites().add(restaurent);  // Add it if not in favorites
+	        favorites.add(dto); // Add DTO instead of Restaurent
 	    }
 
-	    // Save the updated user entity  
+	    // Save the updated user entity
 	    userRepository.save(user);
 
-	    // Return the DTO instead of the Restaurent
 	    return dto;
 	}
+
 
 
 	@Override

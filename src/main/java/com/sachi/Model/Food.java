@@ -19,7 +19,6 @@ import lombok.NoArgsConstructor;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
 public class Food {
 	
 	@Id
@@ -49,5 +48,103 @@ public class Food {
 	private List<IngredientItem> ingredients = new ArrayList<>();
 	
 	private Date creationDate;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public Long getPrice() {
+		return price;
+	}
+
+	public void setPrice(Long price) {
+		this.price = price;
+	}
+
+	public Category getFoodCategory() {
+		return foodCategory;
+	}
+
+	public void setFoodCategory(Category foodCategory) {
+		this.foodCategory = foodCategory;
+	}
+
+	public List<String> getImages() {
+		return images;
+	}
+
+	public void setImages(List<String> images) {
+		this.images = images;
+	}
+
+	public boolean isAvailabel() {
+		return availabel;
+	}
+
+	public void setAvailabel(boolean availabel) {
+		this.availabel = availabel;
+	}
+
+	public Restaurent getRestaurent() {
+		return restaurent;
+	}
+
+	public void setRestaurent(Restaurent restaurent) {
+		this.restaurent = restaurent;
+	}
+
+	public boolean isVegetarian() {
+		return isVegetarian;
+	}
+
+	public void setVegetarian(boolean isVegetarian) {
+		this.isVegetarian = isVegetarian;
+	}
+
+	public boolean isSeasonal() {
+		return isSeasonal;
+	}
+
+	public void setSeasonal(boolean isSeasonal) {
+		this.isSeasonal = isSeasonal;
+	}
+
+	public List<IngredientItem> getIngredients() {
+		return ingredients;
+	}
+
+	public void setIngredients(List<IngredientItem> ingredients) {
+		this.ingredients = ingredients;
+	}
+
+	public Date getCreationDate() {
+		return creationDate;
+	}
+
+	public void setCreationDate(Date creationDate) {
+		this.creationDate = creationDate;
+	}
+	
+	
 	
 }
