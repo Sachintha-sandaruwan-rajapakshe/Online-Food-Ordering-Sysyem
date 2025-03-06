@@ -18,7 +18,6 @@ import lombok.NoArgsConstructor;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
 public class IngredientCategory {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -32,5 +31,39 @@ public class IngredientCategory {
 	
 	@OneToMany(mappedBy = "category",cascade = CascadeType.ALL)
 	private List<IngredientItem> ingredients =new ArrayList<>();
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Restaurent getRestaurent() {
+		return restaurent;
+	}
+
+	public void setRestaurent(Restaurent restaurent) {
+		this.restaurent = restaurent;
+	}
+
+	public List<IngredientItem> getIngredients() {
+		return ingredients;
+	}
+
+	public void setIngredients(List<IngredientItem> ingredients) {
+		this.ingredients = ingredients;
+	}
+	
+	
 
 }
