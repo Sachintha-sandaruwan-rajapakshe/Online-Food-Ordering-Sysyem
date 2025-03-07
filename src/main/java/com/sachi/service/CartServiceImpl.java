@@ -100,6 +100,8 @@ public class CartServiceImpl implements CartService{
 	@Override
 	public Cart clearCart(Long userId) throws Exception {
 		Cart cart =findCartByUserId(userId);
+		 cart.getItems().clear();
+
 		return cartRepository.save(cart);
 	}
 
