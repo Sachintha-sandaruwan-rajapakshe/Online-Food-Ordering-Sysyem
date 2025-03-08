@@ -17,7 +17,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "orders")
@@ -43,13 +42,97 @@ public class Order {
 	private Address deliveryAddress;
 	
 	@OneToMany
-	private List<OrderItem> irem;
+	private List<OrderItem> item;
 	
 	//private Payment payment;
 	
 	private int totalItem;
 	
-	private int totalPrice;
+	private Long totalPrice;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public User getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(User customer) {
+		this.customer = customer;
+	}
+
+	public Restaurent getRestaurent() {
+		return restaurent;
+	}
+
+	public void setRestaurent(Restaurent restaurent) {
+		this.restaurent = restaurent;
+	}
+
+	public Long getTotalAmount() {
+		return totalAmount;
+	}
+
+	public void setTotalAmount(Long totalAmount) {
+		this.totalAmount = totalAmount;
+	}
+
+	public String getOrderStatus() {
+		return orderStatus;
+	}
+
+	public void setOrderStatus(String orderStatus) {
+		this.orderStatus = orderStatus;
+	}
+
+	public Date getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	public Address getDeliveryAddress() {
+		return deliveryAddress;
+	}
+
+	public void setDeliveryAddress(Address deliveryAddress) {
+		this.deliveryAddress = deliveryAddress;
+	}
+
+	public List<OrderItem> getItem() {
+		return item;
+	}
+
+	public void setItem(List<OrderItem> item) {
+		this.item = item;
+	}
+
+	public int getTotalItem() {
+		return totalItem;
+	}
+
+	public void setTotalItem(int totalItem) {
+		this.totalItem = totalItem;
+	}
+
+	public Long getTotalPrice() {
+		return totalPrice;
+	}
+
+	public void setTotalPrice(Long totalPrice) {
+		this.totalPrice = totalPrice;
+	}
+	
+
+	
+
 	
 	
 }
