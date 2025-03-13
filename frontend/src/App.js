@@ -1,10 +1,11 @@
 import logo from './logo.svg';
 import './App.css';
+import { Navbar } from './component/Navbar/Navbar';
 
 function App() {
   return (
-    <div className="App">
-      <div className='text-red-600'>good</div>
+    <div >
+      <Navbar/>
     </div>
   );
 }
