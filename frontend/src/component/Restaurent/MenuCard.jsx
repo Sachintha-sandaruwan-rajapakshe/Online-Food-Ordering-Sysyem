@@ -50,10 +50,10 @@ const MenuCard = () => {
               <FormGroup>
                 {item.ingredients.map((ingredient, index) => (
                   <FormControlLabel
-                    key={index} // Ensuring a unique key for each item
+                    key={index} 
                     required
-                    control={<Checkbox />} // Using Checkbox from '@mui/material'
-                    label={ingredient} // Use 'ingredient' instead of 'item'
+                    control={<Checkbox />} 
+                    label={ingredient} 
                     onChange={()=>handleCheckBoxChange(item)}
                   />
                 ))}
