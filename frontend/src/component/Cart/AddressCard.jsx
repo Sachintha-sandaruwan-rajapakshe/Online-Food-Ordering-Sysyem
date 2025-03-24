@@ -2,10 +2,7 @@ import React from 'react'
 import { Button, Card } from '@mui/material'
 import HomeIcon from '@mui/icons-material/Home';
 
-const AddressCard = () => {
-    const handleSelectAddress =(item,showButton)=>{
-    
-    }
+const AddressCard = ({item,showButton,handleSelectAddress}) => {
   return (
     <Card className='flex gap-5 w-64 p-5'>
         <HomeIcon/>
@@ -14,7 +11,7 @@ const AddressCard = () => {
             <p className='text-gray-400 text-xs pt-1'>
             No 13/B2/2/1, Forest. Reserve Road, Hanthana. Housing Scheme Hanthana. Housing Scheme, Kandy Kandy. 0812218610,0716459385,. Mr. H.S.DASSANAYAKE. Linguist.
             </p>
-            {showButton && (<Button variant="contained" fullWidth onClick={()=>handleSelectAddress()}>Select</Button>)}
+            {showButton && (<Button variant="outlined" fullWidth onClick={()=>handleSelectAddress(item)}>Select</Button>)}
         </div>
     </Card>
   )
