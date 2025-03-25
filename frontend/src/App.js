@@ -6,6 +6,7 @@ import { darkTheme } from './Theme/DarkTheme';
 import Home from './component/Home/Home';
 import RestaurentDetails from './component/Restaurent/RestaurentDetails';
 import Cart from './component/Cart/Cart';
+import Profile from './component/Profile/Profile';
 
 function App() {
   return (
@@ -14,7 +15,8 @@ function App() {
       <Navbar/>
      { /*<Home/>*/}
      { /*<RestaurentDetails/>*/}
-     <Cart/>
+     {/*<Cart/>*/}
+     <Profile/>
     </ThemeProvider>
   );
 }
