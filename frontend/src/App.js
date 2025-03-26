@@ -7,6 +7,7 @@ import Home from './component/Home/Home';
 import RestaurentDetails from './component/Restaurent/RestaurentDetails';
 import Cart from './component/Cart/Cart';
 import Profile from './component/Profile/Profile';
+import CustomerRouters from './component/Routers/CustomerRouters';
 
 function App() {
   return (
@@ -16,7 +17,8 @@ function App() {
      { /*<Home/>*/}
      { /*<RestaurentDetails/>*/}
      {/*<Cart/>*/}
-     <Profile/>
+     {/*<Profile/>*/}
+     <CustomerRouters/>
     </ThemeProvider>
   );
 }

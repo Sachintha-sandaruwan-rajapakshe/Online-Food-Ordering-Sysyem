@@ -1,7 +1,11 @@
 import React from 'react'
-import ProfileNavigation from './ProfileNavigation'
-import { Divider } from '@mui/material'
-import { useState } from 'react'
+import ProfileNavigation from './ProfileNavigation';
+import { useState } from 'react';
+import { Route, Routes } from 'react-router-dom';
+import UserProfile from './UserProfile';
+import Address from './Address';
+import Favorites from './Favorites';
+import Events from './Events';
 
 const Profile = () => {
     const [openSideBar,setOpenSideBar]=useState(false);
@@ -11,6 +15,14 @@ const Profile = () => {
             <ProfileNavigation open={openSideBar}/>
         </div>
         <div className='lg:w-[80%]'>
+          <Routes>
+              <Route path='/' element={<UserProfile/>}/>
+              <Route path='/orders' element={<UserProfile/>}/>
+              <Route path='/address' element={<Address/>}/>
+              <Route path='/favorites' element={<Favorites/>}/>
+              <Route path='/events' element={<Events/>}/>
+              
+          </Routes>
 
         </div>
       
