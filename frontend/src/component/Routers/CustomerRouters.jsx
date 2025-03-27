@@ -9,7 +9,7 @@ import { Navbar } from '../Navbar/Navbar'
 const CustomerRouters = () => {
   return (
     <div>
-      
+      <Navbar/>
       <Routes>
         <Route path='/' element={<Home/>}/>
         <Route path='/account/:register' element={<Home/>}/>
