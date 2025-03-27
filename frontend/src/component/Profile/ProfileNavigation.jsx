@@ -28,7 +28,7 @@ const ProfileNavigation = ({ open, handleClose }) => {
   ]
 
   return (
-    <Drawer
+    <Drawer 
       variant={isSmallScreen ? 'temporary' : 'permanent'}
       open={open}
       onClose={handleClose} // Proper event handler for closing
