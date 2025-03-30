@@ -7,7 +7,7 @@ import { Form, Field, ErrorMessage, Formik } from 'formik';
 import * as Yup from 'yup';
 
 
-const style = {
+export const style = {
   position: 'absolute',
   top: '50%',
   left: '50%',
