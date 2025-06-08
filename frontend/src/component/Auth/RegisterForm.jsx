@@ -1,15 +1,17 @@
-import { Button, TextField, Typography } from '@mui/material'
+import { Button, FormControl, InputLabel, MenuItem, Select, TextField, Typography } from '@mui/material'
 import { Field, Form, Formik } from 'formik'
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 
 const initialValues = {
+  fullName:'',
   email: '',
-  password: ''
+  password: '',
+  role:'ROLE_CUSTOMER'
 }
 
 const handleSubmit = (values) => {
-  console.log(values)
+  console.log('Form values :',values)
   // handle login logic here
 }
 
@@ -30,6 +32,15 @@ const RegisterForm = () => {
             <Form>
               <Field
                 as={TextField}
+                name="fullName"
+                label="full Name"
+                fullWidth
+                variant="outlined"
+                margin="normal"
+              />
+
+              <Field
+                as={TextField}
                 name="email"
                 label="Email"
                 fullWidth
@@ -46,14 +57,29 @@ const RegisterForm = () => {
                 variant="outlined"
                 margin="normal"
               />
+               <FormControl fullWidth sx={{minWidth: 80 }} margin="normal" >
+                  <InputLabel id="role-simple-select-autowidth-label">Role</InputLabel>
+                  <Field
+                    as={Select}
+                    labelId="role-simple-select-autowidth-label"
+                    id="role-simple-select-autowidth"
+                    name="role"
+                    label="Role"
+
+                  >
+                    <MenuItem value={"ROLE_CUSTOMER"}>Customer</MenuItem>
+                    <MenuItem value={"ROLE_RESTAURENT_OWNER"}>Restaurant Owner</MenuItem>
+                  </Field>
+                </FormControl>
+
 
               <Button sx={{ mt: 2 }} variant='contained' fullWidth type='submit'>
-                Login
+                Register
               </Button>
             </Form>
 
             <Typography variant='body2' align='center' sx={{ mt: 3 }}>
-              Don't have an account?{' '}
+              If you alredy have an account ?{' '}
               <Button onClick={() => navigate("/account/login")}>login</Button>
             </Typography>
           </>

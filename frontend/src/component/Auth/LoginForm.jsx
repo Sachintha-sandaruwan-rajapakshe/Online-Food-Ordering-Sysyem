@@ -10,7 +10,7 @@ const initialValues = {
 
 const handleSubmit = (values) => {
   console.log(values)
-  // handle login logic here
+  
 }
 
 const LoginForm = () => {
@@ -52,7 +52,7 @@ const LoginForm = () => {
 
             <Typography variant='body2' align='center' sx={{ mt: 3 }}>
               Don't have an account?{' '}
-              <Button onClick={() => navigate("/account/:register")}>Register</Button>
+              <Button onClick={() => navigate("/account/register")}>Register</Button>
             </Typography>
           </>
         )}

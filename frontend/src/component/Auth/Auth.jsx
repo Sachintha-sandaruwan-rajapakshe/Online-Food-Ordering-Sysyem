@@ -15,9 +15,9 @@ const Auth = () => {
 
   return (
     <>
-      <Modal open={location.pathname==='/account/:register' || location.pathname==='/account/login'} onClose={handleOnClose}>
+      <Modal open={location.pathname==='/account/register' || location.pathname==='/account/login'} onClose={handleOnClose}>
         <Box sx={style}>
-          {location.pathname==='/account/:register'?<RegisterForm/> :<LoginForm/>}
+          {location.pathname==='/account/register'?<RegisterForm/> :<LoginForm/>}
         </Box>
       </Modal>
     </>
