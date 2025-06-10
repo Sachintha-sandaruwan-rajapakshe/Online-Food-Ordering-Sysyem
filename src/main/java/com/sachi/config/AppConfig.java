@@ -36,24 +36,25 @@ public class AppConfig {
 		return http.build();
 	}
 	private CorsConfigurationSource corsConfigurationSource() {
-		
-		return new CorsConfigurationSource() {
-			@Override
-			public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
-				CorsConfiguration cfg = new CorsConfiguration();
-				
-				cfg.setAllowedOrigins(Arrays.asList("Http://localhost:3000"));
-				cfg.setAllowedOriginPatterns(Collections.singletonList("*"));
-				cfg.setAllowCredentials(true);
-				cfg.setAllowedHeaders(Collections.singletonList("*"));
-				cfg.setExposedHeaders(Arrays.asList("Authorization"));
-				cfg.setMaxAge(3600L);
-				return cfg;
-			}
-			
-		};
-		
-	} 
+	    return request -> {
+	        CorsConfiguration cfg = new CorsConfiguration();
+
+	        // ඔබේ frontend එකේ origin එක
+	        cfg.setAllowedOrigins(Arrays.asList("http://localhost:3000"));
+
+	        // මෙය අනිවාර්යයි – POST වගේ method වලට අවසර දිය යුතුයි
+	        cfg.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+
+	        cfg.setAllowedHeaders(Arrays.asList("*"));
+	        cfg.setExposedHeaders(Arrays.asList("Authorization"));
+	        cfg.setAllowCredentials(true);
+	        cfg.setMaxAge(3600L);
+
+	        return cfg;
+	    };
+	}
+
+
 	
 	@Bean
 	PasswordEncoder passwordEncoder() {

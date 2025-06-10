@@ -1,5 +1,5 @@
 import { isPresentInFavorites } from "../../config/logic";
-import { ADD_TO_FAVORITE_FAILURE, ADD_TO_FAVORITE_REQUEST, ADD_TO_FAVORITE_SUCCESS, GET_USER_FAILURE, GET_USER_REQUEST, LOGIN_FAILURE, LOGIN_REQUEST, LOGIN_SUCCESS, REGISTER_FAILURE, REGISTER_REQUEST, REGISTER_SUCCESS } from "./ActionType";
+import { ADD_TO_FAVORITE_FAILURE, ADD_TO_FAVORITE_REQUEST, ADD_TO_FAVORITE_SUCCESS, GET_USER_FAILURE, GET_USER_REQUEST, GET_USER_SUCCESS, LOGIN_FAILURE, LOGIN_REQUEST, LOGIN_SUCCESS, LOGOUT, REGISTER_FAILURE, REGISTER_REQUEST, REGISTER_SUCCESS } from "./ActionType";
 
 const initialState={
     user:null,
@@ -32,6 +32,11 @@ export const authReducer=(state=initialState,action)=>{
                 :[action.payload,...state.favorites]
             };  
         
+        case GET_USER_SUCCESS:
+            return{
+                ...state,isLoading:false,
+                user:action.payload,
+                success:"get user Success",};
         case REGISTER_FAILURE:
         case LOGIN_FAILURE:
         case GET_USER_FAILURE:
@@ -41,6 +46,11 @@ export const authReducer=(state=initialState,action)=>{
                 isLoading:null,
                 error:action.payload,
                 success:null
+            };
+        
+        case LOGOUT:
+            return{
+                initialState
             };
         default:
             return state;
