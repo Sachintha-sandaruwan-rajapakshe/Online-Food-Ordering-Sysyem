@@ -20,7 +20,7 @@ import com.sachi.request.IngredientRequest;
 import com.sachi.service.IngredientsService;
 
 @RestController
-@RequestMapping("/api /admin/ingredients")
+@RequestMapping("/api/admin/ingredients")
 public class IngredientController {
 	@Autowired
 	private IngredientsService ingredientsService;
@@ -39,7 +39,7 @@ public class IngredientController {
 		return new ResponseEntity<IngredientItem>(item,HttpStatus.CREATED);
 	}
 	
-	@PutMapping("/{id}/stoke")
+	@PutMapping("/{id}/stock")
 	public ResponseEntity<IngredientItem> updateIngredientStoke(@PathVariable Long id) throws Exception{
 		IngredientItem item = ingredientsService.updateIngredientItem(id);
 		

@@ -28,7 +28,7 @@ public class AdminOrderController {
 	private UserService userService;
 	
 	@GetMapping("/order/restaurent/{id}")
-	public ResponseEntity<List<Order>> fetOrderHistory(@PathVariable Long id,@RequestHeader("Authorization")String jwt,@RequestParam(required = false) String orderStatus ) throws Exception{
+	public ResponseEntity<List<Order>> getOrderHistory(@PathVariable Long id,@RequestHeader("Authorization")String jwt,@RequestParam(required = false) String orderStatus ) throws Exception{
 		
 		User user =userService.findUserByJwtToken(jwt);
 		List<Order> order =orderService.getRestaurentsOrder(id, orderStatus);
