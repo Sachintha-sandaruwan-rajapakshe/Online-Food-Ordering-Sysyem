@@ -28,13 +28,22 @@ public class RestaurentController {
 	private UserService userService;
 	
 	@GetMapping()
-	public ResponseEntity<List<Restaurent>>searchRestaurent(@RequestParam String keyword, @RequestHeader("Authorization") String jwt) throws Exception{
-		User user =userService.findUserByJwtToken(jwt);
-		
-		List<Restaurent> restaurent = restaurentService.searchRestaurent(keyword);
-		return new ResponseEntity<List<Restaurent>>(restaurent,HttpStatus.OK);
-		
+	public ResponseEntity<List<Restaurent>> searchRestaurent(
+	        @RequestParam(required = false) String keyword, 
+	        @RequestHeader("Authorization") String jwt) throws Exception {
+	    
+	    User user = userService.findUserByJwtToken(jwt);
+	    
+	    List<Restaurent> restaurent;
+	    if (keyword == null || keyword.trim().isEmpty()) {
+	        restaurent = restaurentService.getAllRestaurent();
+	    } else {
+	        restaurent = restaurentService.searchRestaurent(keyword);
+	    }
+	    
+	    return new ResponseEntity<List<Restaurent>>(restaurent, HttpStatus.OK);
 	}
+
 	
 	@GetMapping("/search")
 	public ResponseEntity<List<Restaurent>>getAllRestaurent(@RequestHeader("Authorization") String jwt) throws Exception{

@@ -42,8 +42,8 @@ const Navbar = () => {
         <div>
           {auth.user ? (
             <Avatar onClick={handelAvaterClick} sx={{ backgroundColor: 'white', color: pink.A400 }}>
-              {auth.user?.fullName[0].toUpperCase()}
-            </Avatar>
+  {auth.user?.fullName?.[0]?.toUpperCase() || 'U'}
+</Avatar>
           ) : (
             <IconButton onClick={() => navigate('/account/login')}>
               <Person />
