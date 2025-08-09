@@ -6,16 +6,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import {getAllRestaurentsAction} from '../State/Restaurent/Action'
 
 const Home = () => {
-  const restaurants=[1,1,1,1,1,1,1,1,1]
   const dispatch = useDispatch();
   const jwt = localStorage.getItem("jwt");
   const {restaurant} = useSelector(store=>store);
 
   console.log("restaurant",restaurant)
 
-  useEffect(()=>{
-    dispatch(getAllRestaurentsAction(jwt))
-  },[])
+  useEffect(() => {
+    dispatch(getAllRestaurentsAction(jwt));
+  }, [dispatch, jwt]);
+
   return (
     <div className='pb-10'>
       <section className='banner -z-50 relative flex flex-col justify-center items-center'>
