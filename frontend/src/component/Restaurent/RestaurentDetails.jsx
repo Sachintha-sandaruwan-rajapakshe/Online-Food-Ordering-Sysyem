@@ -30,19 +30,21 @@ const RestaurentDetails = () => {
     const dispatch =useDispatch();
     const jwt = localStorage.getItem('jwt');
     const { auth,restaurant} = useSelector(store => store);
+    
 
     const {city,id} =useParams();
         
     const [foodType,setFoodType]=useState("all");
+
     const handleFilter=(e)=>{
         console.log(e.target.value,e.target.name)
     }
     
     useEffect(()=>{
         dispatch(getRestaurentById({jwt,restaurentId:id}))
-    },[])
-    console.log('restaurant',restaurant)
+    },[dispatch, jwt])
     
+    console.log("restaurant",restaurant)
   return (
     <div className='px-5 lg:px-20'>
       <section>
