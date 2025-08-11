@@ -6,7 +6,8 @@ import React, { useEffect, useState } from 'react'
 import MenuCard from './MenuCard';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getRestaurentById } from '../State/Restaurent/Action';
+import { getRestaurentById, getRestaurentCategory } from '../State/Restaurent/Action';
+import { getMenuItemsByRestaurantId } from '../State/Menu/Action';
 
 const categories=[
     'pizza',
@@ -18,7 +19,7 @@ const categories=[
 const foodTypes=[
     {label:'All',value:'All'},
     {label:'Vegitarion only',value:'vegiterian'},
-    {label:'Non Vegitarion',value:'non_Vegitarion'},
+    {label:'Non Vegitarion',value:'nonvegetarain'},
     {label:'seasonal',value:'seasonal'}
 ]
 
@@ -41,7 +42,9 @@ const RestaurentDetails = () => {
     }
     
     useEffect(()=>{
-        dispatch(getRestaurentById({jwt,restaurentId:id}))
+        dispatch(getRestaurentById({jwt,restaurentId:id}));
+        dispatch(getRestaurentCategory({jwt,restaurentId:id}));
+        dispatch(getMenuItemsByRestaurantId({jwt,reqData: {restaurentId:id,vegetarian:true,nonvegetarain:false,seasonal:true,food_Category:''}}));
     },[dispatch, jwt])
     
     console.log("restaurant",restaurant)
@@ -53,43 +56,43 @@ const RestaurentDetails = () => {
             <Grid container spacing={2}>
                 <Grid item xs={12}>
                     <img className='w-full h-[40vh] object-cover' 
-                    src="https://images.pexels.com/photos/1307698/pexels-photo-1307698.jpeg?auto=compress&cs=tinysrgb&w=600" 
+                    src={restaurant.restaurant?.images[0]} 
                     alt="" />
                 </Grid>
 
                 <Grid item xs={12} lg={6}>
                     <img className='w-full h-[40vh] object-cover' 
-                    src="https://images.pexels.com/photos/1449773/pexels-photo-1449773.jpeg?auto=compress&cs=tinysrgb&w=600" 
+                    src={restaurant.restaurant?.images[1]} 
                     alt="" />
                 </Grid>
 
                 <Grid item xs={12} lg={6}>
                     <img className='w-full h-[40vh] object-cover' 
-                    src="https://images.pexels.com/photos/1537635/pexels-photo-1537635.jpeg?auto=compress&cs=tinysrgb&w=600" 
+                    src={restaurant.restaurant?.images[2]}  
                     alt="" />
                 </Grid>
             </Grid>
             
         </div>
         <div className='pt-3 pb-5'>
-            <h1 className='text-4xl font-semibold text-gray-300'>Sri Lankan Kandy Food</h1>
+            <h1 className='text-4xl font-semibold text-gray-300'>{restaurant.restaurant?.name}</h1>
             <p className='text-gray-300 flex items-center gap-3'>
                 <span className='text-gray-500'>
-                A staple Sri Lankan dish featuring steamed rice served with an assortment of curries, such as dhal (lentil curry), chicken or fish curry, tempered vegetables, and spicy sambols. Each curry is flavored with coconut milk and aromatic spices.
+               {restaurant.restaurant?.description}
                 </span>
             </p>
 
             <p className='text-gray-300 flex items-center gap-2'>
                 <LocationOnIcon className='m-4'/>
                 <span>
-                Kandy road No.05 haras vidiya.
+               {restaurant.restaurant?.address.streetAddress} 
                 </span>
             </p>
 
             <p className='text-gray-300 flex items-center gap-2'>
                 <CalendarMonthIcon className='m-4'/>
                 <span>
-                Mon-sun:9.00 AM - 9.00 PM(Today)
+                {restaurant.restaurant?.openingHours}(Today)
                 </span>
             </p>
         </div>
@@ -123,13 +126,13 @@ const RestaurentDetails = () => {
                     </Typography>
 
                     <FormControl component="fieldset">
-                        <RadioGroup name='food_category' value={foodType} onChange={handleFilter}>
-                            {categories.map((item) => (
+                        <RadioGroup name='food_category' value={restaurant.categories} onChange={handleFilter}>
+                            {restaurant.categories.map((item) => (
                                 <FormControlLabel 
-                                    key={item} 
-                                    value={item.value} 
+                                    key={item.id} 
+                                    value={item.name} 
                                     control={<Radio />} 
-                                    label={item} 
+                                    label={item.name} 
                                 />
                             ))}
                         </RadioGroup>

@@ -21,25 +21,27 @@ export const createMenuItem =({menu,jwt})=>{
 
 };
 
-export const getMenuItemsByRestaurantId =({reqData,jwt})=>{
-    return async(dispatch)=>{
-        dispatch({type:GET_MENU_ITEM_BY_RESTAURANT_ID_REQUEST});
-        try {
-            const {data} =await api.get(`/api/food/restaurent/${reqData.restaurentId}?vegetarian=${reqData.vegeterian}&seasonal=${reqData.seasonal}&food_category=${reqData.foodCategory}`,{
-                headers:{
-                    authorization: `Bearer ${jwt}`,
-                },
-            })
-            console.log('get menu success',data)
-            dispatch({type:GET_MENU_ITEM_BY_RESTAURANT_ID_SUCCESS,payload:data})
-        } catch (error) {
-            console.log('get menu error',error);
-            dispatch({type:GET_MENU_ITEM_BY_RESTAURANT_ID_FAILURE,payload:error})
+export const getMenuItemsByRestaurantId = ({reqData,jwt }) => {
+  return async (dispatch) => {
+    dispatch({ type: GET_MENU_ITEM_BY_RESTAURANT_ID_REQUEST });
+    try {
+      const { data } = await api.get(
+        `/api/food/restaurent/${reqData.restaurentId}?vegetarain=${reqData.vegetarian}&nonvegetarain=${reqData.nonvegetarain}&seasonal=${reqData.seasonal}&food_category=${reqData.food_Category}`,
+        {
+          headers: {
+            Authorization: `Bearer ${jwt}`,
+          },
         }
-
-    };
-
+      );
+      console.log('get menu success', data);
+      dispatch({ type: GET_MENU_ITEM_BY_RESTAURANT_ID_SUCCESS, payload: data });
+    } catch (error) {
+      console.log('get menu error', error);
+      dispatch({ type: GET_MENU_ITEM_BY_RESTAURANT_ID_FAILURE, payload: error });
+    }
+  };
 };
+
 
 export const searchMenuItem =({keyword,jwt})=>{
     return async(dispatch)=>{
@@ -47,7 +49,7 @@ export const searchMenuItem =({keyword,jwt})=>{
         try {
             const {data} =await api.get(`/api/food/search?name=${keyword}`,{
                 headers:{
-                    authorization: `Bearer ${jwt}`,
+                    Authorization: `Bearer ${jwt}`,
                 },
             })
             console.log('search menu success',data)

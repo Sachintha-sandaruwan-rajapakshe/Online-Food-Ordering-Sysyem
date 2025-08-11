@@ -1,0 +1,147 @@
+{
+	"info": {
+		"_postman_id": "ad2bddec-de34-4c9e-91b0-d530fd64f996",
+		"name": "Food Ordering System",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33286689"
+	},
+	"item": [
+		{
+			"name": "User Service",
+			"item": [
+				{
+					"name": "Signin",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"sachifood@gmail.com\",\r\n    \"password\":\"sachifood\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}auth/signin",
+							"host": [
+								"{{BASE_URL}}auth"
+							],
+							"path": [
+								"signin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Signup",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"fullName\":\"sachintha sandaruwan\",\r\n    \"email\":\"sachifood8675@gmail.com\",\r\n    \"password\":\"sachifood8675\",\r\n    \"role\":\"ROLE_RESTAURANT_OWNER\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Restaurant service",
+			"item": [
+				{
+					"name": "Create Restaurant",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"Food\",\r\n    \"description\":\"Description of the restaurant\",\r\n    \"cuisineType\":\"sri lankan\",\r\n    \"address\":{\r\n        \"streetAddress\":\"132 main street\",\r\n        \"city\":\"badulla\",\r\n        \"stateProvince\":\"Uva\",\r\n        \"postalCode\":\"1234\",\r\n        \"country\":\"sri lanka\"\r\n    },\r\n    \"contactInformation\":{\r\n        \"email\":\"sachinthasandaruwan8675@gmail.com\",\r\n        \"mobile\":\"123455676\",\r\n        \"twitter\":\"@sachi_restaurent\",\r\n        \"instagram\":\"@sachi_instagram\"\r\n    },\r\n    \"openingHours\":\"Mon-Sun: 9:00 AM - 9:00 pm\",\r\n    \"images\":[\r\n        \"https://media.istockphoto.com/id/2188358193/photo/family-having-breakfast-in-hotel.jpg?s=1024x1024&w=is&k=20&c=-CFTOGodDNaK5WMGwqSBR_LVf3PJqnbqLflIirJcCk8=\",\r\n        \"https://media.istockphoto.com/id/2153043133/photo/friendly-bar-interaction-between-diverse-patrons-and-waitress.jpg?s=1024x1024&w=is&k=20&c=g6mEpNN7DS61bJzPMiZrfB5U0SJUpHrfL3E3mggAV98=\"\r\n    ]\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}api/admin/restaurents",
+							"host": [
+								"{{BASE_URL}}api"
+							],
+							"path": [
+								"admin",
+								"restaurents"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get_All_Restaurent",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"Food\",\r\n    \"description\":\"Description of the restaurant\",\r\n    \"cuisineType\":\"sri lankan\",\r\n    \"address\":{\r\n        \"streetAddress\":\"132 main street\",\r\n        \"city\":\"badulla\",\r\n        \"stateProvince\":\"Uva\",\r\n        \"postalCode\":\"1234\",\r\n        \"country\":\"sri lanka\"\r\n    },\r\n    \"contactInformation\":{\r\n        \"email\":\"sachinthasandaruwan8675@gmail.com\",\r\n        \"mobile\":\"123455676\",\r\n        \"twitter\":\"@sachi_restaurent\",\r\n        \"instagram\":\"@sachi_instagram\"\r\n    },\r\n    \"openingHours\":\"Mon-Sun: 9:00 AM - 9:00 pm\",\r\n    \"images\":[\r\n        \"https://media.istockphoto.com/id/2188358193/photo/family-having-breakfast-in-hotel.jpg?s=1024x1024&w=is&k=20&c=-CFTOGodDNaK5WMGwqSBR_LVf3PJqnbqLflIirJcCk8=\",\r\n        \"https://media.istockphoto.com/id/2153043133/photo/friendly-bar-interaction-between-diverse-patrons-and-waitress.jpg?s=1024x1024&w=is&k=20&c=g6mEpNN7DS61bJzPMiZrfB5U0SJUpHrfL3E3mggAV98=\"\r\n    ]\r\n\r\n}"
+						},
+						"url": {
+							"raw": "{{BASE_URL}}api/restaurents",
+							"host": [
+								"{{BASE_URL}}api"
+							],
+							"path": [
+								"restaurents"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Food category",
+			"item": []
+		}
+	]
+}

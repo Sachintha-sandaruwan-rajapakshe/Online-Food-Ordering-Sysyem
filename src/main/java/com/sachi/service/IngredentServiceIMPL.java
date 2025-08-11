@@ -34,7 +34,7 @@ public class IngredentServiceIMPL implements IngredientsService{
 	public IngredientCategory findIngredientCategoryById(Long id) throws Exception {
 		Optional<IngredientCategory> optionalCategory = IngredientCategoryRepository.findById(id);
 		if(optionalCategory.isEmpty()) {
-			throw new Exception("Intrdent categpory not found .!");
+			throw new Exception("Ingredient category not found .!");
 		}
 		return optionalCategory.get();
 	}
@@ -53,6 +53,7 @@ public class IngredentServiceIMPL implements IngredientsService{
 		IngredientItem ingredientItem =new IngredientItem();
 		ingredientItem.setName(ingredientName);
 		ingredientItem.setCategory(category);
+		ingredientItem.setRestaurent(restaurent); 
 		
 		IngredientItem ingredient = ingredientItemRepository.save(ingredientItem);
 		category.getIngredients().add(ingredient);
