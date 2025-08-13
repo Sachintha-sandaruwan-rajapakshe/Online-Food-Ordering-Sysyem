@@ -13,7 +13,7 @@ import { useSelector } from 'react-redux'; // ✅ This is correct
 
 const Navbar = () => {
   const navigate = useNavigate();
-  const { auth } = useSelector(store => store); // ✅ This is save data redux storage  and access it
+  const { auth,cart } = useSelector(store => store); // ✅ This is save data redux storage  and access it
 
   const handelAvaterClick=()=>{
     if(auth.user?.role==="ROLE_CUSTOMER"){
@@ -52,8 +52,8 @@ const Navbar = () => {
         </div>
 
         <div>
-          <IconButton>
-            <Badge badgeContent={3}>
+          <IconButton onClick={()=>navigate("/cart")}>
+            <Badge badgeContent={cart.cart?.items.length}>
               <ShoppingCartIcon sx={{ fontSize: '1.5rem' }} />
             </Badge>
           </IconButton>

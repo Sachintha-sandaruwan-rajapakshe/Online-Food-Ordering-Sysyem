@@ -5,6 +5,8 @@ import AddressCard from './AddressCard';
 import AddLocationAltIcon from '@mui/icons-material/AddLocationAlt';
 import { Form, Field, ErrorMessage, Formik } from 'formik';
 import * as Yup from 'yup';
+import { useSelector } from 'react-redux';
+
 
 
 export const style = {
@@ -36,24 +38,28 @@ const validationSchema = Yup.object().shape({
 const handleSubmit = (values) => {
   console.log('Form values:', values);
 };
-const items = [1, 1];
+//const items = [1, 1];
 
 const Cart = () => {
   const createOrderUsingSelectedAddress=(selectedAddress)=>{
     console.log("Selected Address:", selectedAddress);
   };
-  const handleOpenAddressModel=()=>setOpen(true);;
+  const handleOpenAddressModel=()=>setOpen(true);
   const [open, setOpen] = React.useState(false);
   const handleClose = () => setOpen(false);
+
+  const {cart} = useSelector(state => state);
+  console.log('value :',cart.cart?.items)
 
   return (
     <>
     <main className="lg:flex justify-between min-h-screen"> 
       <section className="lg:w-[30%] space-y-6 lg:min-h-screen pt-10">
         <CartItem />
-        {items.map((item, index) => (
-          <CartItem key={index} />
-        ))}
+        {cart.cart?.Items?.map((item) => (
+        <CartItem item={item}/>
+        )) || null}
+
         <Divider />
         <div className="billDetails px-5 text-sm">
           <p className="font-extralight py-5">Bill Details</p>

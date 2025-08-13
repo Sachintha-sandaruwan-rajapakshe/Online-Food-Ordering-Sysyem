@@ -38,6 +38,7 @@ export const getAllCartItem =(reqData)=>{
 };
 
 export const addItemToCart =(reqData)=>{
+    console.log(reqData)
     return async (dispatch)=>{
         dispatch({type:ADD_ITEM_TO_CART_REQUEST});
         try {
@@ -46,11 +47,11 @@ export const addItemToCart =(reqData)=>{
                     Authorization:`Bearer ${reqData.token}`,
                 }
             })
-            console.log('all cart item success',response.data)
+            console.log('Add item to cart successfully',response.data)
             dispatch({type:ADD_ITEM_TO_CART_SUCCESS,payload:response.data});
         } catch (error) {
             dispatch({type:ADD_ITEM_TO_CART_FAILURE,payload:error?.response?.data?.message || error.message});
-            console.log('all cart item error',error)
+            console.log('Add item to cart error',error)
         }
     };
 };

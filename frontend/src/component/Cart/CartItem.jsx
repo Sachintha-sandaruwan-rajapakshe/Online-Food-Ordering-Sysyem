@@ -3,7 +3,8 @@ import RemoveCircleOutlineOutlinedIcon from '@mui/icons-material/RemoveCircleOut
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import React from 'react'
 
-const CartItem = () => {
+const CartItem = ({item}) => {
+    
   return (
     <div className='px-5'>
         <div className='lg:flex items-center lg:space-x-5'>
@@ -14,7 +15,7 @@ const CartItem = () => {
             </div>
             <div className='flex items-center justify-between lg:w-[70%]'> 
                 <div className='space-y-1 lg:space-y-3 w-full'>
-                    <p>Pizza</p>
+                    <p>hhh</p>
                     <div className='flex justify-between items-center'>
                         <div className='flex items-center space-x-1'> 
                             <IconButton>
