@@ -68,7 +68,7 @@ public class OrderServiceImpl implements OrderService{
 			orderItem.setFood(cartItem.getFood());
 			orderItem.setIngredients(cartItem.getIngredients());
 			orderItem.setQuantity(cartItem.getQuantity());
-			orderItem.setTotalPrice(cartItem.getId());
+			orderItem.setTotalPrice(cartItem.getTotalPrice());
 			
 			OrderItem saveOrderItem =orderItemRepository.save(orderItem);
 			orderItems.add(saveOrderItem);
@@ -79,7 +79,7 @@ public class OrderServiceImpl implements OrderService{
 		newOrder.setTotalPrice(totalPrice);
 		Order saveOrder = orderRepository.save(newOrder);
 		restaurent.getOrders().add(saveOrder);
-		return newOrder;
+		return saveOrder;
 	}
 
 	@Override

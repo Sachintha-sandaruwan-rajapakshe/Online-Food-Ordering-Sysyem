@@ -69,8 +69,7 @@ export const cartReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        cartItems: state.cartItems.map((item) =>
-          item.id === action.payload.id ? action.payload : item
+        cartItems: state.cartItems.map((item) =>item.id === action.payload.id ? action.payload : item
         ),
       };
 

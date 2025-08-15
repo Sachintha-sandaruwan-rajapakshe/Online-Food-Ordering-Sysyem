@@ -5,7 +5,8 @@ import AddressCard from './AddressCard';
 import AddLocationAltIcon from '@mui/icons-material/AddLocationAlt';
 import { Form, Field, ErrorMessage, Formik } from 'formik';
 import * as Yup from 'yup';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { createOrder } from '../State/Order/Action';
 
 
 
@@ -47,25 +48,46 @@ const Cart = () => {
   const handleOpenAddressModel=()=>setOpen(true);
   const [open, setOpen] = React.useState(false);
   const handleClose = () => setOpen(false);
+  const dispatch = useDispatch();
 
-  const {cart} = useSelector(state => state);
-  console.log('value :',cart.cart?.items)
+  const {cart,auth} = useSelector(state => state);
+
+  const handleSubmit=(values)=>{
+    const data={
+      jwt:localStorage.getItem('jwt'),
+      order:{
+        restaurentId:1,
+        delivaryAddress:{
+          fullName:auth.user?.fullName,
+          streetAddress:values.streetAddress,
+          city:values.city,
+          state:values.state,
+          postalCode:values.pincode,
+          country:"SriLanka"
+        }
+      }
+    }
+    console.log('data value :',data)
+    dispatch(createOrder(data));
+  };
+  
 
   return (
     <>
     <main className="lg:flex justify-between min-h-screen"> 
       <section className="lg:w-[30%] space-y-6 lg:min-h-screen pt-10">
-        <CartItem />
-        {cart.cart?.Items?.map((item) => (
-        <CartItem item={item}/>
-        )) || null}
+       
+        {cart.cart?.items?.map((item) => (
+        <CartItem  item={item} />
+         ))}
+
 
         <Divider />
         <div className="billDetails px-5 text-sm">
           <p className="font-extralight py-5">Bill Details</p>
           <div className="flex justify-between text-gray-400">
             <p>Item Total</p>
-            <p>Rs.200.00</p>
+            <p>Rs.{cart.cart?.total}</p>
           </div>
           <div className="flex justify-between text-gray-400">
             <p>Delivery Fee</p>
@@ -82,7 +104,7 @@ const Cart = () => {
           <Divider />
           <div className="flex justify-between pt-5 pb-2">
             <p>Total Pay</p>
-            <p>Rs.272.00</p>
+            <p>Rs.{cart.cart?.total+20+2+50}</p>
           </div>
         </div>
       </section>

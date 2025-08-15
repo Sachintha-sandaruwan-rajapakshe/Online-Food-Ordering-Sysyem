@@ -60,16 +60,16 @@ export const updateCartItem =(reqData)=>{
     return async (dispatch)=>{
         dispatch({type:UPDATE_CART_ITEM_REQUEST});
         try {
-            const response =await api.put(`/api/cart-item/update`,reqData.cartItem,{
+            const response =await api.put(`/api/cart-item/update`,reqData.data,{
                 headers:{
                     Authorization:`Bearer ${reqData.jwt}`,
                 }
             })
-            console.log('all cart item success',response.data)
+            console.log('update cart item success',response.data)
             dispatch({type:UPDATE_CART_ITEM_SUCCESS,payload:response.data});
         } catch (error) {
             dispatch({type:UPDATE_CART_ITEM_FAILURE,payload:error?.response?.data?.message || error.message});
-            console.log('all cart item error',error)
+            console.log('update cart item error',error)
         }
     };
 };
