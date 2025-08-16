@@ -36,11 +36,6 @@ const validationSchema = Yup.object().shape({
   city: Yup.string().required("City is required")
 });
 
-const handleSubmit = (values) => {
-  console.log('Form values:', values);
-};
-//const items = [1, 1];
-
 const Cart = () => {
   const createOrderUsingSelectedAddress=(selectedAddress)=>{
     console.log("Selected Address:", selectedAddress);
@@ -56,12 +51,12 @@ const Cart = () => {
     const data={
       jwt:localStorage.getItem('jwt'),
       order:{
-        restaurentId:1,
-        delivaryAddress:{
+        restaurentId:cart.cart.items[0].food?.restaurent.id,
+        deliveryAddress:{
           fullName:auth.user?.fullName,
           streetAddress:values.streetAddress,
           city:values.city,
-          state:values.state,
+          stateProvince:values.state,
           postalCode:values.pincode,
           country:"SriLanka"
         }
@@ -76,9 +71,8 @@ const Cart = () => {
     <>
     <main className="lg:flex justify-between min-h-screen"> 
       <section className="lg:w-[30%] space-y-6 lg:min-h-screen pt-10">
-       
-        {cart.cart?.items?.map((item) => (
-        <CartItem  item={item} />
+        {cart.cartItems?.map((item) => (
+        <CartItem key={item.id} item={item} />
          ))}
 
 

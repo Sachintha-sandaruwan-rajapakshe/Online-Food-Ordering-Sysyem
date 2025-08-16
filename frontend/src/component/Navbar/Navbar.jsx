@@ -53,7 +53,7 @@ const Navbar = () => {
 
         <div>
           <IconButton onClick={()=>navigate("/cart")}>
-            <Badge badgeContent={cart.cart?.items.length}>
+            <Badge badgeContent={cart.cart?.items?.length}>
               <ShoppingCartIcon sx={{ fontSize: '1.5rem' }} />
             </Badge>
           </IconButton>

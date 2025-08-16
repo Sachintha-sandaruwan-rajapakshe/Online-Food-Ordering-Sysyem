@@ -38,7 +38,7 @@ const Home = () => {
         <h1 className='text-2px font-semibold text-gray-400 pb-8'>Order From Our Handpicked Favorites</h1>
         <div className='flex flex-wrap items-center justify-around gap-5'>
             {
-              restaurant.restaurants.map((item)=><Restaurentcard item ={item}/>)
+              restaurant.restaurants?.map((item)=><Restaurentcard item ={item}/>)
             }
         </div>
       </section>

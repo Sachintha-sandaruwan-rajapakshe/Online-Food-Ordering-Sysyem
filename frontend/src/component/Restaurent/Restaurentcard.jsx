@@ -13,6 +13,7 @@ const Restaurentcard = ({item}) => {
     const dispatch =useDispatch();
     const jwt = localStorage.getItem('jwt');
     const { auth } = useSelector(store => store);
+    const favorites = auth.favorites || [];
 
     const handelAddToFavorites=()=>{
         dispatch(addToFavorite({jwt,restaurentId:item.id}))
@@ -26,7 +27,13 @@ const Restaurentcard = ({item}) => {
   return (
     <Card className=' w-[18rem]'>
         <div className={`${true?'cursor-pointer':'curser-not-allowed'} relative `}>
-            <img className='w-full h-[10rem] rounded-t-md object-cover' src={item.images[0]} alt="" />
+            {item.images && item.images?.length > 0 && (
+            <img
+                className='w-full h-[10rem] rounded-t-md object-cover'
+                src={item.images[0]}
+                alt={item.name}
+            />
+            )}
             <Chip
                 size="small"
                 className="absolute top-2 left-2"
@@ -46,7 +53,7 @@ const Restaurentcard = ({item}) => {
         </div>
         <div>
             <IconButton onClick={handelAddToFavorites}>
-                {isPresentInFavorites(auth.favorites,item)?<FavoriteIcon/>:<FavoriteBorderIcon/>}
+                {isPresentInFavorites(favorites,item)?<FavoriteIcon/>:<FavoriteBorderIcon/>}
             </IconButton>
         </div>
 

@@ -49,6 +49,7 @@ export const cartReducer = (state = initialState, action) => {
         ...state,
         loading: false,
         cart: action.payload,
+        cartItems:action.payload.items,
       };
 
     case GET_ALL_CART_ITEM_SUCCESS:
@@ -62,7 +63,7 @@ export const cartReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        cartItems: [...state.cartItems, action.payload],
+        cartItems: [action.payload,...state.cartItems],
       };
 
     case UPDATE_CART_ITEM_SUCCESS:
@@ -78,14 +79,16 @@ export const cartReducer = (state = initialState, action) => {
         ...state,
         loading: false,
         cartItems: state.cartItems.filter((item) => item.id !== action.payload.id),
+        //cartItems:state.cartItems.map((item) => item.id ===action.payload.id? action.payload: item),
       };
 
     case CLEAR_CART_SUCCESS:
       return {
+   
         ...state,
         loading: false,
-        cartItems: [],
-        message: action.payload,
+        cart: action.payload,
+        cartItems:action.payload.items,
       };
 
     case FIND_CART_FAILURE:

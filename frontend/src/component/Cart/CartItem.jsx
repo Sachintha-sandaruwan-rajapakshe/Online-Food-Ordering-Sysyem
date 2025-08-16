@@ -8,25 +8,25 @@ import { removeCartItem, updateCartItem } from '../State/Cart/Action';
 
 
 const CartItem = ({item}) => {
-    const {auth,cart} =useSelector(store=>store);
+    const {auth} =useSelector(store=>store);
     const navigate =useNavigate();
     const dispatch = useDispatch();
     const jwt = localStorage.getItem('jwt');
 
     const handleUpdateCartItem = (value) => {
-        console.log('data value : ',value)
-    if (value === -1 && item.quantity === 1) {
-        handleRemoveCartItem();
-        return;
-    }
-
-    const data = {
-        cartItemId: item.id,
-        quantity: item.quantity + value
-    };
-    
+        if (value === -1 && item.quantity === 1) {
+            handleRemoveCartItem();
+            return;
+        }
+        if (item.quantity + value < -1) {
+        return; // block going negative
+         }
+        const data = {
+            cartItemId: item.id,
+            quantity: item.quantity + value
+        };  
     dispatch(updateCartItem({ jwt,data }));
-}
+    }
 
 
     const handleRemoveCartItem=()=>{

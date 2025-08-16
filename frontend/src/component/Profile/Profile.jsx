@@ -1,12 +1,14 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import ProfileNavigation from './ProfileNavigation';
 import { useState } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import UserProfile from './UserProfile';
 import Address from './Address';
 import Favorites from './Favorites';
 import Events from './Events';
 import Orders from './Orders';
+import { useDispatch, useSelector } from 'react-redux';
+import { getUserOrder } from '../State/Order/Action';
 
 const Profile = () => {
     const [openSideBar,setOpenSideBar]=useState(false);

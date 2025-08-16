@@ -12,7 +12,7 @@ const initialState = {
   error: null,
   success: false,
   order: null,
-  userOrders: [],
+  orders: [],
 };
 
 export const orderReducer = (state = initialState, action) => {
@@ -38,7 +38,8 @@ export const orderReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        userOrders: action.payload,
+        order:action.payload,
+        orders: action.payload,
         success: true,
       };
 

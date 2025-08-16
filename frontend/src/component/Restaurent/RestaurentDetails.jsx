@@ -109,7 +109,7 @@ const RestaurentDetails = () => {
             <p className='text-gray-300 flex items-center gap-2'>
                 <LocationOnIcon className='m-4'/>
                 <span>
-               {restaurant.restaurant?.address.streetAddress} 
+               {restaurant.restaurant?.address?.streetAddress} 
                 </span>
             </p>
 
@@ -166,7 +166,7 @@ const RestaurentDetails = () => {
         </div>
 
         <div className='space-y-5 lg-w[80%] lg:pl-10'>
-            {menu.menuItems.map((item)=><MenuCard item={item}/>)}
+            {menu.menuItems?.map((item)=><MenuCard item={item}/>)}
             
         </div>
       </section>
