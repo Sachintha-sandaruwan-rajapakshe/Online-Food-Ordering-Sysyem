@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.sachi.Model.Order;
 import com.sachi.Model.User;
 import com.sachi.request.OrderRequest;
+import com.sachi.response.PaymentResponse;
 import com.sachi.service.OrderService;
+import com.sachi.service.PaymentService;
 import com.sachi.service.UserService;
 
 @RestController
@@ -27,12 +29,16 @@ public class OrderController {
 	@Autowired
 	private UserService userService;
 	
+	@Autowired
+	private PaymentService paymentService;
+	
 	@PostMapping("/order")
-	public ResponseEntity<Order> createOrder(@RequestBody OrderRequest req,@RequestHeader("Authorization")String jwt ) throws Exception{
+	public ResponseEntity<PaymentResponse> createOrder(@RequestBody OrderRequest req,@RequestHeader("Authorization")String jwt ) throws Exception{
 		
 		User user =userService.findUserByJwtToken(jwt);
 		Order order =orderService.createOrder(req, user);
-		return new ResponseEntity<Order>(order,HttpStatus.CREATED);
+		PaymentResponse res = paymentService.createPaymentLink(order);
+		return new ResponseEntity<PaymentResponse>(res,HttpStatus.CREATED);
 		
 	}
 	
