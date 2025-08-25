@@ -3,6 +3,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import { Button, CircularProgress, Grid, IconButton, TextField } from '@mui/material'
 import { useFormik } from 'formik'
 import React, { useState } from 'react'
+import { uploadImageToCloudanary } from '../Utility/UploadCloudanary';
 const initialValues={
   name:'',
   description:'',
@@ -24,16 +25,43 @@ const CreateRestaurantForm = () => {
   const [uploadImage,setUploadImage]=useState(false);
   const formik =useFormik({
     initialValues,
-    onSubmit:()=>{
-
+    onSubmit:(values)=>{
+      const data={
+        name:values.name,
+        description:values.description,
+        cuisineType:values.cuisineType,
+        address:{
+          streetAddress:values.streetAddress,
+          postalCode:values.postalCode,
+          country:values.country,
+          city:values.city,
+          stateProvince:values.stateProvince,
+        },
+        contactInformation:{
+          email:values.email,
+          mobile:values.mobile,
+          twitter:values.twitter,
+          instagram:values.instagram,
+        },
+        openingHours:values.openingHours,
+        images:values.images
+      }
+      console.log('data : ',data);
     }
   })
 
-  const handleImageChange=(e)=>{
-
+  const handleImageChange=async(e)=>{
+    const file =e.target.files[0];
+    setUploadImage(true);
+    const image = await uploadImageToCloudanary(file);
+    console.log('image : ',image);
+    formik.setFieldValue('images',[...formik.values.images,image])
+    setUploadImage(false);
   }
   const handleRemoveImage=(index)=>{
-
+    const updatedImage = [...formik.values.images];
+    updatedImage.splice(index,1);
+    formik.setFieldValue('images',updatedImage);
   }
   return (
     <div className='py-10 px-5 lg:flex items-center justify-center min-h-screen'>
@@ -61,11 +89,11 @@ const CreateRestaurantForm = () => {
               </label>
 
               <div className='flex flex-wrap gap-2'>
-                {[1,1,1].map((image,index)=>
+                {formik.values.images.map((image,index)=>
                   <div className='relative'>
                     <img className='w-24 h-24 object-cover'
                     key={index}
-                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQzJfzFjVVumyxfxiNZNAF6NmTKPm5IgOOQgA&s" alt="" />
+                    src={image} alt="" />
 
                     <IconButton size='small' sx={{position:'absolute',top:0,right:0,outline:'none'}}onClick={()=>handleRemoveImage(index)}>
                     <CloseIcon/>
@@ -143,13 +171,12 @@ const CreateRestaurantForm = () => {
 
           <Grid item xs={4}>
               <TextField fullWidth 
-              type='number'
               id='postalCode'
               label="Postal Code"
               name='postalCode'
               variant='outlined'
               onChange={formik.handleChange}
-              value={formik.values.name}
+              value={formik.values.postalCode}
               />
           </Grid>
 
@@ -176,14 +203,14 @@ const CreateRestaurantForm = () => {
           </Grid>
 
           <Grid item xs={6}>
-              <TextField fullWidth 
+              <TextField fullWidth
               type='number'
               id='mobile'
               label="Mobile"
               name='mobile'
               variant='outlined'
               onChange={formik.handleChange}
-              value={formik.values.name}
+              value={formik.values.mobile}
               />
           </Grid>
           

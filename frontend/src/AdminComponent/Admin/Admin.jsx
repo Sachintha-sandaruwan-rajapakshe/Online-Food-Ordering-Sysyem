@@ -8,6 +8,7 @@ import Ingredients from '../Ingredients/Ingredients'
 import RestaurantDetails from './RestaurantDetails'
 import Events from '../Events/Events'
 import RestaurantDashBoard from '../DashBoard/RestaurantDashBoard'
+import CreateMenuForm from '../Menu/CreateMenuForm'
 
 const Admin = () => {
     const handelClose =()=>{
@@ -28,6 +29,7 @@ const Admin = () => {
                     <Route path='/ingredients'element={<Ingredients/>}/>
                     <Route path='/details'element={<RestaurantDetails/>}/>
                     <Route path='/event'element={<Events/>}/>
+                    <Route path='/add-menu'element={<CreateMenuForm/>}/>
                 </Routes>
             </div>
 
