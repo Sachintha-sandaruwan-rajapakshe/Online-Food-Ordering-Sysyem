@@ -22,7 +22,8 @@ export const authReducer=(state=initialState,action)=>{
         case REGISTER_SUCCESS:
         case LOGIN_SUCCESS:
             return{
-                ...state,isLoading:false,
+                ...state,
+                isLoading:false,
                 jwt:action.payload,
                 success:"Register Success",};
             
