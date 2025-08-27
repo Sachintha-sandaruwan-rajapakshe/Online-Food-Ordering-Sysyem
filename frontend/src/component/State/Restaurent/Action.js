@@ -81,12 +81,13 @@ export const getRestaurentByUserId = (jwt) => {
   return async (dispatch) => {
     dispatch({ type: GET_RESTAURANT_BY_USER_ID_REQUEST });
     try {
-      const { data } = await api.get(`/api/admin/restaurent/user`, {
+      const { data } = await api.get(`/api/admin/restaurents/user`, {
         headers: {
           Authorization: `Bearer ${jwt}`,
         },
       });
       dispatch({ type: GET_RESTAURANT_BY_USER_ID_SUCCESS, payload: data });
+      console.log("getRestaurentByUserId successs", data);
     } catch (error) {
       console.log("getRestaurentByUserId error", error);
       dispatch({ type: GET_RESTAURANT_BY_USER_ID_FAILURE, payload: error });
@@ -152,7 +153,7 @@ export const updateRestaurentStatus = ({ restaurentId, jwt }) => {
   return async (dispatch) => {
     dispatch({ type: UPDATE_RESTAURANT_STATUS_REQUEST });
     try {
-      const res = await api.put(`/api/restaurents/${restaurentId}/status`, {}, {
+      const res = await api.put(`/api/admin/restaurents/${restaurentId}/status`, {}, {
         headers: {
           Authorization: `Bearer ${jwt}`,
         },

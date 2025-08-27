@@ -4,6 +4,8 @@ import { Button, CircularProgress, Grid, IconButton, TextField } from '@mui/mate
 import { useFormik } from 'formik'
 import React, { useState } from 'react'
 import { uploadImageToCloudanary } from '../Utility/UploadCloudanary';
+import { useDispatch } from 'react-redux';
+import { createRestaurent } from '../../component/State/Restaurent/Action';
 const initialValues={
   name:'',
   description:'',
@@ -22,6 +24,9 @@ const initialValues={
 }
 
 const CreateRestaurantForm = () => {
+  const dispatch = useDispatch();
+  const jwt =localStorage.getItem('jwt')
+
   const [uploadImage,setUploadImage]=useState(false);
   const formik =useFormik({
     initialValues,
@@ -47,6 +52,7 @@ const CreateRestaurantForm = () => {
         images:values.images
       }
       console.log('data : ',data);
+      dispatch(createRestaurent({data,token:jwt}));
     }
   })
 
@@ -198,7 +204,7 @@ const CreateRestaurantForm = () => {
               name='city'
               variant='outlined'
               onChange={formik.handleChange}
-              value={formik.values.name}
+              value={formik.values.city}
               />
           </Grid>
 
