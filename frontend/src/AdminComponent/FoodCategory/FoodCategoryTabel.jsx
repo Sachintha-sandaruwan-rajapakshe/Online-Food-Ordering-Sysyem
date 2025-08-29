@@ -4,6 +4,7 @@ import React from 'react'
 import DeleteIcon from '@mui/icons-material/Delete';
 import ConstructionIcon from '@mui/icons-material/Construction';
 import CreateFoodCategoryForm from './CreateFoodCategoryForm';
+import { useDispatch, useSelector } from 'react-redux';
 
 const style = {
   position: 'absolute',
@@ -18,10 +19,18 @@ const style = {
 };
 
 const order=[1,1,1,1]
+
 const FoodCategoryTable = () => {
+
+  const dispatch =useDispatch();
+  const jwt= localStorage.getItem('jwt')
+  const{restaurant} = useSelector((store)=>store)
+  
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  console.log('restaurant : ',restaurant)
   return (
     <Box sx={{paddingLeft:"1rem"}}>
         <Card className="px-5">
@@ -57,15 +66,15 @@ const FoodCategoryTable = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {order.map((row) => (
+          {restaurant.categories?.map((row,index) => (
             <TableRow
               key={row.name}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <TableCell component="th" scope="row">
-                {1}
+                {index+1}
               </TableCell>
-              <TableCell align="left">{"Pizza"}</TableCell>
+              <TableCell align="left">{row.name}</TableCell>
               <TableCell align="right">{<IconButton> <ConstructionIcon sx={{color:"Green"}}/> </IconButton>}</TableCell>
               <TableCell align="right">{<IconButton> <DeleteIcon sx={{color:"RED"}}/> </IconButton>}</TableCell>
             </TableRow>

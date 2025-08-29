@@ -1,9 +1,11 @@
 import { Create } from '@mui/icons-material'
 import { Box, Card, CardHeader, IconButton, Modal, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material'
-import React from 'react'
+import React, { useEffect } from 'react'
 import DeleteIcon from '@mui/icons-material/Delete';
 import ConstructionIcon from '@mui/icons-material/Construction';
 import CreateIngredientCategoryForm from './CreateIngredientCategoryForm';
+import { useDispatch, useSelector } from 'react-redux';
+import { getIngredientCategory } from '../../component/State/Ingredients/Action';
 
 const order=[1,1,1,1]
 
@@ -19,10 +21,19 @@ const style = {
   p: 4,
 };
 const IngredientCategoryTable = () => {
+  const jwt  = localStorage.getItem('jwt');
+  const dispatch = useDispatch();
+  const{restaurant,ingredients}= useSelector(store=>store)
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  useEffect(()=>{
+     dispatch(getIngredientCategory({ id:restaurant.userRestaurant?.id, jwt }));
+  },[])
+
+ 
   return (
     <Box sx={{paddingLeft:"1rem"}}>
         <Card className="px-5">
@@ -58,7 +69,7 @@ const IngredientCategoryTable = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {order.map((row) => (
+          {ingredients.ingredientCategories?.map((row) => (
             <TableRow
               key={row.name}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -66,7 +77,7 @@ const IngredientCategoryTable = () => {
               <TableCell component="th" scope="row">
                 {1}
               </TableCell>
-              <TableCell align="left">{"protein"}</TableCell>
+              <TableCell align="left">{row.name}</TableCell>
               <TableCell align="right">{<IconButton> <ConstructionIcon sx={{color:"Green"}}/> </IconButton>}</TableCell>
               <TableCell align="right">{<IconButton> <DeleteIcon sx={{color:"RED"}}/> </IconButton>}</TableCell>
             </TableRow>

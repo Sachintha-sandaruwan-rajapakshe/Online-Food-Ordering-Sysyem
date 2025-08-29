@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import AdminSideBar from './AdminSideBar'
 import { Route, Routes } from 'react-router-dom'
 import Orders from '../Orders/Orders'
@@ -9,8 +9,23 @@ import RestaurantDetails from './RestaurantDetails'
 import Events from '../Events/Events'
 import RestaurantDashBoard from '../DashBoard/RestaurantDashBoard'
 import CreateMenuForm from '../Menu/CreateMenuForm'
+import { useDispatch, useSelector } from 'react-redux'
+import { getRestaurentById, getRestaurentCategory } from '../../component/State/Restaurent/Action'
+import { getMenuItemsByRestaurantId } from '../../component/State/Menu/Action'
+import { fetchRestaurantOrder } from '../../component/State/RestaurantOrder/Action'
 
 const Admin = () => {
+    const dispatch =useDispatch();
+    const jwt = localStorage.getItem('jwt');
+    const{restaurant} = useSelector(store=>store)
+
+    useEffect(()=>{
+        dispatch(getRestaurentCategory({jwt, restaurentId:restaurant.userRestaurant?.id}));
+        dispatch(fetchRestaurantOrder({jwt, restaurantId:restaurant.userRestaurant?.id,orderStatus:'PENDING'}));
+        //dispatch(getMenuItemsByRestaurantId());
+        //dispatch(getRestaurentById());
+    },[]);
+
     const handelClose =()=>{
 
     }

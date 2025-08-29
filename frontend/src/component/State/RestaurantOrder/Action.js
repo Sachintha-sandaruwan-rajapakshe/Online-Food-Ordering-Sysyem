@@ -11,9 +11,11 @@ export const fetchRestaurantOrder =({restaurantId,orderStatus,jwt})=>{
                     Authorization: `Bearer ${jwt}`
                 },
             });
-            tch({type:GET_RESTAURANT_ORDER_SUCCESS,payload:response.data})
+            dispatch({type:GET_RESTAURANT_ORDER_SUCCESS,payload:response.data})
+            console.log("get Restaurant Order ",response.data);
         } catch (error) {
             dispatch({type:GET_RESTAURANT_ORDER_FAILURE,payload:error?.response?.data?.message || error.message})
+            console.log("get Restaurant Order error ", error);
         }
     };
 };

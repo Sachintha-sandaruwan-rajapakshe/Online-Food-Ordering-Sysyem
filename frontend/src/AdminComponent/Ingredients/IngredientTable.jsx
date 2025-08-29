@@ -1,9 +1,11 @@
 import { Create } from '@mui/icons-material'
 import { Box, Card, CardHeader, IconButton, Modal, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material'
-import React from 'react'
+import React, { useEffect } from 'react'
 import DeleteIcon from '@mui/icons-material/Delete';
 import ConstructionIcon from '@mui/icons-material/Construction';
 import CreateIngredientForm from './CreateIngredientForm';
+import { useDispatch, useSelector } from 'react-redux';
+import { getIngredientsOfRestaurent } from '../../component/State/Ingredients/Action';
 
 const style = {
   position: 'absolute',
@@ -19,6 +21,16 @@ const style = {
 
 const order=[1,1,1,1]
 const IngredientTable = () => {
+   const jwt  = localStorage.getItem('jwt');
+  const dispatch = useDispatch();
+  const{restaurant,ingredients}= useSelector(store=>store)
+
+  useEffect(()=>{
+     dispatch(getIngredientsOfRestaurent({ id:restaurant.userRestaurant?.id, jwt }));
+  },[])
+
+  console.log('ingredient ',ingredients)
+
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -59,17 +71,17 @@ const IngredientTable = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {order.map((row) => (
+          {ingredients.ingredients.map((item) => (
             <TableRow
-              key={row.name}
+              key={item.name}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <TableCell component="th" scope="row">
                 {1}
               </TableCell>
-              <TableCell align="left">{"Pizza"}</TableCell>
-              <TableCell align="left">{"protein"}</TableCell>
-              <TableCell align="left">{"IN STOKE"}</TableCell>
+              <TableCell align="left">{item.name}</TableCell>
+              <TableCell align="left">{item.category?.name}</TableCell>
+              <TableCell align="left">{item.inStock?'In Stoke':'Out of Stoke'}</TableCell>
               <TableCell align="right">{<IconButton> <ConstructionIcon sx={{color:"Green"}}/> </IconButton>}</TableCell>
               <TableCell align="right">{<IconButton> <DeleteIcon sx={{color:"RED"}}/> </IconButton>}</TableCell>
             </TableRow>

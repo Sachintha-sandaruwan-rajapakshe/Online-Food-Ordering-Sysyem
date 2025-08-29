@@ -1,7 +1,17 @@
 import { Button, FormControl, Grid, InputLabel, MenuItem, Select, TextField } from '@mui/material'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
+import { createIngredient, getIngredientCategory } from '../../component/State/Ingredients/Action';
 
 const CreateIngredientForm = () => {
+  const jwt  = localStorage.getItem('jwt');
+  const dispatch = useDispatch();
+  const{restaurant,ingredients}= useSelector(store=>store)
+
+  useEffect(()=>{
+     dispatch(getIngredientCategory({ id:restaurant.userRestaurant?.id, jwt }));
+  },[])
+
   const [formData, setFormData] = useState({
     categoryName: '',
     ingredientCategoryId: ''
@@ -12,13 +22,11 @@ const CreateIngredientForm = () => {
 
     const data = {
       name: formData.categoryName,
-      category: formData.ingredientCategoryId,
-      restaurentId: {
-        id: 1
-      }
+      categoryId: formData.ingredientCategoryId,
+      restaurentId:restaurant.userRestaurant?.id,
     }
-
     console.log("data ", data)
+     dispatch(createIngredient({jwt,reqData:data}))
   }
 
   const handleInputChange = (e) => {
@@ -56,9 +64,9 @@ const CreateIngredientForm = () => {
               label="category"
               onChange={handleInputChange}
             >
-              {["pizza", "burger", "sandwich"].map((name) => (
-                <MenuItem key={name} value={name}>
-                  {name}
+              {ingredients.ingredientCategories?.map((item) => (
+                <MenuItem key={item.id} value={item.id}>
+                  {item.name}
                 </MenuItem>
               ))}
             </Select>

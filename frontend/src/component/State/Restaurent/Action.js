@@ -249,7 +249,7 @@ export const createCategoryAction = ({ reqData, jwt }) => {
         },
       });
       dispatch({ type: CREATE_CATEGORY_SUCCESS, payload: res.data });
-      console.log("category create successful");
+      console.log("category create successful",res.data);
     } catch (error) {
       console.log("category create error", error);
       dispatch({ type: CREATE_CATEGORY_FAILURE, payload: error });
@@ -267,7 +267,7 @@ export const getRestaurentCategory = ({ restaurentId, jwt }) => {
         },
       });
       dispatch({ type: GET_RESTAURANT_CATEGORIES_SUCCESS, payload: res.data });
-      console.log("restaurent category successful");
+      console.log("get restaurent category ",res.data);
     } catch (error) {
       console.log("restaurent category error", error);
       dispatch({ type: GET_RESTAURANT_CATEGORIES_FAILURE, payload: error });
