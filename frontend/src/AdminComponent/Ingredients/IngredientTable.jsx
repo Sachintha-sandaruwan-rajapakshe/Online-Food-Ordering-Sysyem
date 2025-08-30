@@ -5,7 +5,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import ConstructionIcon from '@mui/icons-material/Construction';
 import CreateIngredientForm from './CreateIngredientForm';
 import { useDispatch, useSelector } from 'react-redux';
-import { getIngredientsOfRestaurent } from '../../component/State/Ingredients/Action';
+import { getIngredientsOfRestaurent, updateStockOfIngredient } from '../../component/State/Ingredients/Action';
 
 const style = {
   position: 'absolute',
@@ -34,6 +34,10 @@ const IngredientTable = () => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  const handleUpdateStoke=(value)=>{
+     dispatch(updateStockOfIngredient({ id:value, jwt }));
+  }
   return (
     <Box sx={{paddingLeft:"1rem"}}>
         <Card className="px-5">
@@ -58,12 +62,12 @@ const IngredientTable = () => {
 
 
     <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
+      <Table  aria-label="simple table">
         <TableHead>
           <TableRow>
             <TableCell>Id</TableCell>
             <TableCell align="left">Name</TableCell>            
-            <TableCell align="right">Category</TableCell>
+            <TableCell align="left">Category</TableCell>
             <TableCell align="left">Avaliability</TableCell>
             <TableCell align="right">Modify</TableCell>
             <TableCell align="right">Delete</TableCell>
@@ -71,17 +75,18 @@ const IngredientTable = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {ingredients.ingredients.map((item) => (
+          {ingredients.ingredients.map((item,index) => (
             <TableRow
-              key={item.name}
+              key={item.id || index}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <TableCell component="th" scope="row">
-                {1}
+                {index+1}
               </TableCell>
               <TableCell align="left">{item.name}</TableCell>
               <TableCell align="left">{item.category?.name}</TableCell>
-              <TableCell align="left">{item.inStock?'In Stoke':'Out of Stoke'}</TableCell>
+              <TableCell align="left"><span onClick={()=>handleUpdateStoke(item.id)} style={{ color: item.inStock ? "green" : "red" }}>
+                  {item.inStock ? "In Stock" : "Out of Stock"}</span></TableCell>
               <TableCell align="right">{<IconButton> <ConstructionIcon sx={{color:"Green"}}/> </IconButton>}</TableCell>
               <TableCell align="right">{<IconButton> <DeleteIcon sx={{color:"RED"}}/> </IconButton>}</TableCell>
             </TableRow>

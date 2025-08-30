@@ -1,11 +1,30 @@
 import { Create } from '@mui/icons-material'
-import { Box, Card, CardHeader, IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material'
-import React from 'react'
+import { Box, Card, CardHeader, Chip, IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material'
+import React, { useEffect } from 'react'
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteFoodAction, getMenuItemsByRestaurantId, updateMenuItemAvailability } from '../../component/State/Menu/Action';
 
 const order=[1,1,1,1]
 const MenuTable = () => {
+
+  const dispatch = useDispatch();
+  const jwt = localStorage.getItem('jwt');
+  const { restaurant,menu} = useSelector(store => store);
+
+  useEffect(()=>{
+    dispatch(getMenuItemsByRestaurantId({reqData:{restaurentId:restaurant.userRestaurant?.id},jwt}))
+  },[]);
+
+  const handleChangeFoodStatus=(item)=>{
+    dispatch(updateMenuItemAvailability({foodId:item?.id,jwt}));
+  }
+
+  const handledeleteItem=(item)=>{
+    dispatch(deleteFoodAction({foodId:item?.id,jwt}))
+  }
+
   const navigate=useNavigate();
   return (
     <Box>
@@ -24,29 +43,53 @@ const MenuTable = () => {
         <TableHead>
           <TableRow>
             <TableCell>Id</TableCell>
-            <TableCell align="leftt">Image</TableCell>
+            <TableCell align="left">Image</TableCell>
             <TableCell align="left">Title</TableCell>
-            <TableCell align="right">Ingredients</TableCell>
+            <TableCell align="left">Ingredients</TableCell>
             <TableCell align="right">price</TableCell>
             <TableCell align="right">Avaliable</TableCell>
             <TableCell align="right">Delete</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {order.map((row) => (
+          {menu.menuItems?.map((item,index) => (
             <TableRow
-              key={row.name}
+              key={item.id}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <TableCell component="th" scope="row">
-                {1}
+                {index+1}
               </TableCell>
-              <TableCell align="left">{"image"}</TableCell>
-              <TableCell align="left">{"pizaa"}</TableCell>
-              <TableCell align="right">{"source"}</TableCell>
-              <TableCell align="right">{2300}</TableCell>
-              <TableCell align="right">{"IN StOKE"}</TableCell>
-              <TableCell align="right">{<IconButton> <DeleteIcon sx={{color:"RED"}}/> </IconButton>}</TableCell>
+              <TableCell align="left">
+                <img 
+                  src={item.images[0]} 
+                  alt={item.name}  
+                  className="h-12 w-12 object-cover rounded" 
+                />
+              </TableCell>
+              <TableCell align="left">{item.name}</TableCell>
+              <TableCell align="left">
+                {item.ingredients?.map((ing) => (
+                  <Chip 
+                    key={ing.id} 
+                    label={ing.name} 
+                    size="small" 
+                    style={{ marginRight: '4px', marginBottom: '4px' }}
+                  />
+                ))}
+              </TableCell>
+              <TableCell align="right">Rs.{item.price}.00</TableCell>
+              <TableCell align="right" onClick={() => handleChangeFoodStatus(item)} style={{ cursor: 'pointer' }}>
+                <Chip 
+                  label={item.availabel ? "In Stock" : "Out of Stock"} 
+                  style={{ 
+                    backgroundColor: item.availabel ? "green" : "red", 
+                    color: "white",
+                    fontWeight: "bold"
+                  }} 
+                />
+              </TableCell>
+              <TableCell align="right" onClick={()=>handledeleteItem(item)}>{<IconButton> <DeleteIcon sx={{color:"RED"}}/> </IconButton>}</TableCell>
             </TableRow>
           ))}
         </TableBody>

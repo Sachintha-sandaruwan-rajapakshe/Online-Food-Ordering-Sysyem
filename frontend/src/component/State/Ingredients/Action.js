@@ -93,7 +93,7 @@ export const getIngredientCategory = ({ id, jwt }) => {
 export const updateStockOfIngredient = ({ id, jwt }) => {
   return async (dispatch) => {
     try {
-      const response = await api.get(`/api/admin/ingredients/${id}/stock`, {
+      const response = await api.put(`/api/admin/ingredients/${id}/stock`, {},{
         headers: {
           Authorization: `Bearer ${jwt}`,
         },

@@ -14,7 +14,7 @@ const initialState = {
         case actionTypes.GET_MENU_ITEM_BY_RESTAURANT_ID_REQUEST:
         case actionTypes.DELETE_MENU_ITEM_REQUEST:
         case actionTypes.SEARCH_MENU_ITEM_REQUEST:
-        case actionTypes.UPDATE_MENU_ITEMS_AVAILABILITY_SUCCESS:
+        case actionTypes.UPDATE_MENU_ITEMS_AVAILABILITY_REQUEST:
             return{
                 ...state,
                 loading:true,

@@ -26,7 +26,15 @@ export const getMenuItemsByRestaurantId = ({reqData,jwt }) => {
     dispatch({ type: GET_MENU_ITEM_BY_RESTAURANT_ID_REQUEST });
     try {
       const { data } = await api.get(
-        `/api/food/restaurent/${reqData.restaurentId}?vegetarain=${reqData.vegetarian}&nonvegetarain=${reqData.nonvegetarain}&seasonal=${reqData.seasonal}&food_category=${reqData.food_Category}`,
+        `/api/food/restaurent/${reqData.restaurentId}${
+            reqData.vegetarain !== undefined ? `&vegetarain=${reqData.vegetarain}` : ''
+        }${
+            reqData.nonvegetarain !== undefined ? `&nonvegetarain=${reqData.nonvegetarain}` : ''
+        }${
+            reqData.seasonal !== undefined ? `&seasonal=${reqData.seasonal}` : ''
+        }${
+            reqData.food_category ? `&food_category=${reqData.food_category}` : ''
+        }`,
         {
           headers: {
             Authorization: `Bearer ${jwt}`,
@@ -87,7 +95,7 @@ export const updateMenuItemAvailability =({foodId,jwt})=>{
     return async(dispatch)=>{
         dispatch({type:UPDATE_MENU_ITEMS_AVAILABILITY_REQUEST});
         try {
-            const {data} =await api.put(`/api/admin/food/${foodId}`,{},{ //{}request body eka sesa bawitha karai meya nathuwa put mapping eka weda nokarai
+            const {data} =await api.put(`/api/admin/food/${foodId}`,{},{ //{}request body eka lesa bawitha karai meya nathuwa put mapping eka weda nokarai
                 headers:{
                     authorization: `Bearer ${jwt}`,
                 },
@@ -113,7 +121,7 @@ export const deleteFoodAction =({foodId,jwt})=>{
                 },
             })
             console.log('get menu success',data)
-            dispatch({type:DELETE_MENU_ITEM_SUCCESS,payload:data})
+            dispatch({type:DELETE_MENU_ITEM_SUCCESS,payload:foodId})
         } catch (error) {
             console.log('get menu error',error);
             dispatch({type:DELETE_MENU_ITEM_FAILURE,payload:error})

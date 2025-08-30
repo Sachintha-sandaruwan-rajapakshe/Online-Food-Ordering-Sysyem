@@ -69,13 +69,13 @@ const IngredientCategoryTable = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {ingredients.ingredientCategories?.map((row) => (
+          {ingredients.ingredientCategories?.map((row,index) => (
             <TableRow
               key={row.name}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <TableCell component="th" scope="row">
-                {1}
+                {index+1}
               </TableCell>
               <TableCell align="left">{row.name}</TableCell>
               <TableCell align="right">{<IconButton> <ConstructionIcon sx={{color:"Green"}}/> </IconButton>}</TableCell>
