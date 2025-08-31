@@ -37,6 +37,7 @@ export const restaurantOrderReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
+        orders: state.orders.map((order) =>order.id === action.payload.id ? action.payload : order),
         updateSuccess: true,
         error: null,
         // Optional: update local orders list if needed

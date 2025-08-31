@@ -48,7 +48,7 @@ export const cartReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        cart: action.payload,
+       // cart: action.payload,
         cartItems:action.payload.items,
       };
 

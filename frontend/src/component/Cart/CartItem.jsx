@@ -14,19 +14,21 @@ const CartItem = ({item}) => {
     const jwt = localStorage.getItem('jwt');
 
     const handleUpdateCartItem = (value) => {
-        if (value === -1 && item.quantity === 1) {
-            handleRemoveCartItem();
-            return;
-        }
-        if (item.quantity + value < -1) {
-        return; // block going negative
-         }
-        const data = {
-            cartItemId: item.id,
-            quantity: item.quantity + value
-        };  
-    dispatch(updateCartItem({ jwt,data }));
+    const newQuantity = item.quantity + value;
+    console.log( " ",newQuantity)
+    if (newQuantity <= 0) {
+        handleRemoveCartItem();  // quantity 0 වෙලා නම් remove කරන්න
+        return;
     }
+
+    const data = {
+        cartItemId: item.id,
+        quantity: newQuantity
+    };  
+
+    dispatch(updateCartItem({ jwt, data }));
+}
+
 
 
     const handleRemoveCartItem=()=>{

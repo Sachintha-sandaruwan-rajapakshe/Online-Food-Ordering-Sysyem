@@ -21,19 +21,19 @@ export const createMenuItem =({menu,jwt})=>{
 
 };
 
-export const getMenuItemsByRestaurantId = ({reqData,jwt }) => {
+export const getMenuItemsByRestaurantId = ({ reqData, jwt }) => {
   return async (dispatch) => {
     dispatch({ type: GET_MENU_ITEM_BY_RESTAURANT_ID_REQUEST });
     try {
       const { data } = await api.get(
-        `/api/food/restaurent/${reqData.restaurentId}${
-            reqData.vegetarain !== undefined ? `&vegetarain=${reqData.vegetarain}` : ''
+        `/api/food/restaurent/${reqData.restaurentId}?${
+          reqData.vegetarian !== undefined ? `&vegetarian=${reqData.vegetarian}` : ''
         }${
-            reqData.nonvegetarain !== undefined ? `&nonvegetarain=${reqData.nonvegetarain}` : ''
+          reqData.nonvegetarain !== undefined ? `&nonvegetarain=${reqData.nonvegetarain}` : ''
         }${
-            reqData.seasonal !== undefined ? `&seasonal=${reqData.seasonal}` : ''
+          reqData.seasonal !== undefined ? `&seasonal=${reqData.seasonal}` : ''
         }${
-            reqData.food_category ? `&food_category=${reqData.food_category}` : ''
+          reqData.food_category ? `&category=${reqData.food_category.toLowerCase()}` : ''
         }`,
         {
           headers: {
@@ -49,6 +49,7 @@ export const getMenuItemsByRestaurantId = ({reqData,jwt }) => {
     }
   };
 };
+
 
 
 export const searchMenuItem =({keyword,jwt})=>{

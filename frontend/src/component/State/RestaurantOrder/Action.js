@@ -6,7 +6,7 @@ export const fetchRestaurantOrder =({restaurantId,orderStatus,jwt})=>{
         dispatch({type:GET_RESTAURANT_ORDER_REQUEST});
         try {
             const response = await api.get(`/api/admin/order/restaurent/${restaurantId}`,{
-                params:{order_status:orderStatus},
+                params:{orderStatus:orderStatus},
                 headers:{
                     Authorization: `Bearer ${jwt}`
                 },
@@ -29,7 +29,7 @@ export const updateOrderStatus =({orderId,orderStatus,jwt})=>{
                     Authorization: `Bearer ${jwt}`
                 }
             })
-            console('update order status',response.data)
+            console.log('update order status',response.data)
             dispatch({type:UPDATE_ORDER_STATUS_SUCCESS,payload:response.data})
         } catch (error) {
             dispatch({type:UPDATE_ORDER_STATUS_FAILURE,payload:error?.response?.data?.message || error.message})

@@ -9,6 +9,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { uploadImageToCloudanary } from '../Utility/UploadCloudanary';
+import { useDispatch, useSelector } from 'react-redux';
 
 const initialValues = {
   name: '',
@@ -21,6 +22,10 @@ const initialValues = {
 const CreateEvent = () => {
   const [uploadImage, setUploadImage] = useState(false);
 
+  const dispatch = useDispatch();
+  const jwt = localStorage.getItem('jwt');
+  const { restaurant, ingredients } = useSelector(store => store);
+
   const formik = useFormik({
     initialValues,
     onSubmit: (values) => {
@@ -30,6 +35,7 @@ const CreateEvent = () => {
     endAt: values.endAt ? values.endAt.format("MM/DD/YYYY hh:mm A") : null,
       };
       console.log('Submitted data:', data);
+      dispatch();
     }
   });
 

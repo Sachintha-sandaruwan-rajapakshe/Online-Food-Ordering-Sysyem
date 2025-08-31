@@ -51,7 +51,7 @@ const Cart = () => {
     const data={
       jwt:localStorage.getItem('jwt'),
       order:{
-        restaurentId:cart.cart.items[0].food?.restaurent.id,
+        restaurentId:cart.cartItems.items[4].food?.restaurent.id,
         deliveryAddress:{
           fullName:auth.user?.fullName,
           streetAddress:values.streetAddress,

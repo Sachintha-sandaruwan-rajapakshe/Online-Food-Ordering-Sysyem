@@ -2,7 +2,6 @@ import { Button, Card } from '@mui/material'
 import React from 'react'
 
 const OrderCard = ({items,orders}) => {
-  console.log('data : ',items);
   return (
     <Card className='flex justify-between items-center p-4'>
         <div className='flex items-center space-x-2'>
