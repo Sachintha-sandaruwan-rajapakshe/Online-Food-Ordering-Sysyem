@@ -33,7 +33,7 @@ export const getMenuItemsByRestaurantId = ({ reqData, jwt }) => {
         }${
           reqData.seasonal !== undefined ? `&seasonal=${reqData.seasonal}` : ''
         }${
-          reqData.food_category ? `&category=${reqData.food_category.toLowerCase()}` : ''
+          reqData.food_category ? `&food_category=${reqData.food_category}` : ''
         }`,
         {
           headers: {

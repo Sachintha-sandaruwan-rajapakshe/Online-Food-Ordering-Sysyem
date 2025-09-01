@@ -49,7 +49,7 @@ const RestaurentDetails = () => {
         vegetarian: foodType === "vegiterian",
         nonvegetarain: foodType === "nonvegetarain",
         seasonal: foodType === "seasonal",
-        food_Category: selectedCategory 
+        food_category: selectedCategory 
       }
     }));
   }, [dispatch, jwt, id, selectedCategory, foodType]);

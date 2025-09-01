@@ -56,6 +56,11 @@ public class Restaurent {
 	@JsonIgnore
 	@OneToMany(mappedBy = "restaurent",cascade = CascadeType.ALL,orphanRemoval = true)
 	private List<Food> foods = new ArrayList<>();
+	
+	// One Restaurent → Many Events
+	@JsonIgnore
+    @OneToMany(mappedBy = "restaurent", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Event> events;
 
 	public Long getId() {
 		return id;
@@ -160,6 +165,18 @@ public class Restaurent {
 	public void setFoods(List<Food> foods) {
 		this.foods = foods;
 	}
+
+	public List<Event> getEvents() {
+		return events;
+	}
+
+	public void setEvents(List<Event> events) {
+		this.events = events;
+	}
+
+	
+	
+	
 	
 	
 	

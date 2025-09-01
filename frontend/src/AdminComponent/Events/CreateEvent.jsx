@@ -10,6 +10,7 @@ import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { uploadImageToCloudanary } from '../Utility/UploadCloudanary';
 import { useDispatch, useSelector } from 'react-redux';
+import { createEvent } from '../../component/State/Event/Action';
 
 const initialValues = {
   name: '',
@@ -24,19 +25,22 @@ const CreateEvent = () => {
 
   const dispatch = useDispatch();
   const jwt = localStorage.getItem('jwt');
-  const { restaurant, ingredients } = useSelector(store => store);
+  const { restaurant} = useSelector(store => store);
 
   const formik = useFormik({
     initialValues,
     onSubmit: (values) => {
-      const data = {
-        ...values,
-        startAt: values.startAt ? values.startAt.format("MM/DD/YYYY hh:mm A") : null,
-    endAt: values.endAt ? values.endAt.format("MM/DD/YYYY hh:mm A") : null,
-      };
-      console.log('Submitted data:', data);
-      dispatch();
-    }
+  const reqData = {
+    eventName: values.name,   
+    location: values.location,
+    startDate: values.startAt ? values.startAt.format("MM/DD/YYYY hh:mm A") : null,
+    endDate: values.endAt ? values.endAt.format("MM/DD/YYYY hh:mm A") : null,
+    images: values.images,     
+  };
+
+  console.log('Submitted data:', reqData);
+   dispatch(createEvent({ restaurentId: restaurant.userRestaurant.id, reqData, jwt }));
+}
   });
 
   const handleImageChange = async (e) => {

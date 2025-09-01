@@ -1,8 +1,10 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import EventCard from './EventCard'
 import { Create } from '@mui/icons-material'
 import { Box, Card, IconButton, Modal, Typography } from '@mui/material'
 import CreateEvent from './CreateEvent';
+import { useDispatch, useSelector } from 'react-redux';
+import { getRestaurantEvents } from '../../component/State/Event/Action';
 
 const style = {
   position: 'absolute',
@@ -17,6 +19,15 @@ const style = {
 };
 
 const Events = () => {
+
+    const dispatch = useDispatch();
+  const jwt = localStorage.getItem('jwt');
+  const { restaurant,event} = useSelector(store => store);
+
+  useEffect(()=>{
+    dispatch(getRestaurantEvents({ restaurentId:restaurant.userRestaurant.id, jwt }))
+  },[]);
+
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -46,7 +57,7 @@ const Events = () => {
       </div>
 
       <div className='mt-5 px-5 flex flex-wrap gap-5'>
-        {[0,1,2].map((item)=><EventCard/>)}
+        {event.events?.map((item)=><EventCard item={item}/>)}
       </div>
     </div>
     

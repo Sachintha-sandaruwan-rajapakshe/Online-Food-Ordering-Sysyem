@@ -7,6 +7,7 @@ import { cartReducer } from "./Cart/Reducer";
 import { orderReducer } from "./Order/Reducer";
 import { restaurantOrderReducer } from "./RestaurantOrder/reducer";
 import {ingredientReducer} from "./Ingredients/Reducer";
+import { eventReducer } from "./Event/EventReducer";
 
 
 
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
     order:orderReducer,
     restaurantOrder:restaurantOrderReducer,
     ingredients:ingredientReducer,
+    event:eventReducer
 });
 
 export const store = legacy_createStore(rootReducer,applyMiddleware(thunk));
