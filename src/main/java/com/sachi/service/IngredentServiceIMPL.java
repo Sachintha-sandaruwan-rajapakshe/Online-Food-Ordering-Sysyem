@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.sachi.Model.Category;
 import com.sachi.Model.IngredientCategory;
 import com.sachi.Model.IngredientItem;
 import com.sachi.Model.Restaurent;
@@ -73,6 +74,24 @@ public class IngredentServiceIMPL implements IngredientsService{
 		IngredientItem ingredientItem  = optionalIngredientItem.get();
 		ingredientItem.setInStock(!ingredientItem.isInStock());
 		return ingredientItemRepository.save(ingredientItem);
+	}
+	@Override
+	public IngredientCategory deleteCategoryByCategoryId(Long id) throws Exception {
+	    Optional<IngredientCategory> optionalCategory = IngredientCategoryRepository.findById(id);
+	    if(optionalCategory.isEmpty()) {
+	        throw new Exception("Category not found.!");
+	    }
+	    IngredientCategoryRepository.delete(optionalCategory.get()); // Delete from DB
+	    return optionalCategory.get(); // return deleted category
+	}
+	@Override
+	public IngredientItem deleteIngredientByItemId(Long id) throws Exception {
+	    Optional<IngredientItem> optionalCategory = ingredientItemRepository.findById(id);
+	    if(optionalCategory.isEmpty()) {
+	        throw new Exception("Category not found.!");
+	    }
+	    ingredientItemRepository.delete(optionalCategory.get()); // Delete from DB
+	    return optionalCategory.get(); // return deleted category
 	}
 	
 	

@@ -3,6 +3,12 @@ import {
   CREATE_INGREDIENT_CATEGORY_FAILURE, CREATE_INGREDIENT_CATEGORY_REQUEST, CREATE_INGREDIENT_CATEGORY_SUCCESS,
   CREATE_INGREDIENT_FAILURE, CREATE_INGREDIENT_REQUEST, CREATE_INGREDIENT_SUCCESS,
   CREATE_ORDER_FAILURE,
+  DELETE_INGREDIENT_CATEGORY_FAILURE,
+  DELETE_INGREDIENT_CATEGORY_REQUEST,
+  DELETE_INGREDIENT_CATEGORY_SUCCESS,
+  DELETE_INGREDIENT_FAILURE,
+  DELETE_INGREDIENT_REQUEST,
+  DELETE_INGREDIENT_SUCCESS,
   GET_INGREDIENTS, GET_INGREDIENT_CATEGORY_FAILURE, GET_INGREDIENT_CATEGORY_REQUEST, GET_INGREDIENT_CATEGORY_SUCCESS,
   UPDATE_STOCK 
 } from "./ActionType";
@@ -102,6 +108,44 @@ export const updateStockOfIngredient = ({ id, jwt }) => {
       dispatch({ type: UPDATE_STOCK, payload: response.data });
     } catch (error) {
       console.log("update Ingredient stock error", error);
+    }
+  };
+};
+
+export const deleteIngredientsCategory = ({ categoryId, jwt }) => {
+  return async (dispatch) => {
+    dispatch({ type: DELETE_INGREDIENT_CATEGORY_REQUEST });
+
+    try {
+      const res = await api.delete(`/api/admin/ingredients/category/delete/${categoryId}`, {
+        headers: { Authorization: `Bearer ${jwt}` },
+      });
+
+      // API returns deleted category object
+      dispatch({ type: DELETE_INGREDIENT_CATEGORY_SUCCESS, payload: res.data });
+      console.log("Deleted ingredients category:", res.data);
+    } catch (error) {
+      dispatch({ type: DELETE_INGREDIENT_CATEGORY_FAILURE, payload: error.message });
+      console.error("Delete category error:", error);
+    }
+  };
+};
+
+export const deleteIngredients = ({ categoryId, jwt }) => {
+  return async (dispatch) => {
+    dispatch({ type: DELETE_INGREDIENT_REQUEST });
+
+    try {
+      const res = await api.delete(`/api/admin/ingredients/delete/${categoryId}`, {
+        headers: { Authorization: `Bearer ${jwt}` },
+      });
+
+      // API returns deleted category object
+      dispatch({ type: DELETE_INGREDIENT_SUCCESS, payload: res.data });
+      console.log("Deleted ingredients category:", res.data);
+    } catch (error) {
+      dispatch({ type: DELETE_INGREDIENT_FAILURE, payload: error.message });
+      console.error("Delete category error:", error);
     }
   };
 };

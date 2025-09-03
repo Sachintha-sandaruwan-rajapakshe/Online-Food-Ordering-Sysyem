@@ -15,6 +15,8 @@ public interface EventService {
 
 	public Event deleteRestaurantEvent(Long eventId)throws Exception;
 
+	public List<Event> getEventsByAllRestaurant()throws Exception;
+
 	
 	
 }

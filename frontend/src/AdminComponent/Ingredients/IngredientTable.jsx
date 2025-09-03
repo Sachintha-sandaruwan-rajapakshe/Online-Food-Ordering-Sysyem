@@ -1,11 +1,11 @@
 import { Create } from '@mui/icons-material'
-import { Box, Card, CardHeader, IconButton, Modal, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material'
+import { Box, Card, IconButton, Modal, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material'
 import React, { useEffect } from 'react'
 import DeleteIcon from '@mui/icons-material/Delete';
 import ConstructionIcon from '@mui/icons-material/Construction';
 import CreateIngredientForm from './CreateIngredientForm';
 import { useDispatch, useSelector } from 'react-redux';
-import { getIngredientsOfRestaurent, updateStockOfIngredient } from '../../component/State/Ingredients/Action';
+import { deleteIngredients, getIngredientsOfRestaurent, updateStockOfIngredient } from '../../component/State/Ingredients/Action';
 
 const style = {
   position: 'absolute',
@@ -37,6 +37,10 @@ const IngredientTable = () => {
 
   const handleUpdateStoke=(value)=>{
      dispatch(updateStockOfIngredient({ id:value, jwt }));
+  };
+
+  const handelDeleteIngredientItem=(id)=>{
+    dispatch(deleteIngredients({categoryId:id, jwt}))
   }
   return (
     <Box sx={{paddingLeft:"1rem"}}>
@@ -88,7 +92,7 @@ const IngredientTable = () => {
               <TableCell align="left"><span onClick={()=>handleUpdateStoke(item.id)} style={{ color: item.inStock ? "green" : "red" }}>
                   {item.inStock ? "In Stock" : "Out of Stock"}</span></TableCell>
               <TableCell align="right">{<IconButton> <ConstructionIcon sx={{color:"Green"}}/> </IconButton>}</TableCell>
-              <TableCell align="right">{<IconButton> <DeleteIcon sx={{color:"RED"}}/> </IconButton>}</TableCell>
+              <TableCell align="right">{<IconButton onClick={()=>handelDeleteIngredientItem(item.id)}> <DeleteIcon sx={{color:"RED"}}/> </IconButton>}</TableCell>
             </TableRow>
           ))}
         </TableBody>

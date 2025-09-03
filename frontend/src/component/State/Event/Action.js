@@ -2,7 +2,8 @@ import { api } from "../../config/api";
 import { 
   CREATE_EVENT_REQUEST, CREATE_EVENT_SUCCESS, CREATE_EVENT_FAILURE,
   GET_RESTAURANT_EVENT_REQUEST, GET_RESTAURANT_EVENT_SUCCESS, GET_RESTAURANT_EVENT_FAILURE,
-  DELETE_RESTAURANT_EVENT_REQUEST, DELETE_RESTAURANT_EVENT_SUCCESS, DELETE_RESTAURANT_EVENT_FAILURE
+  DELETE_RESTAURANT_EVENT_REQUEST, DELETE_RESTAURANT_EVENT_SUCCESS, DELETE_RESTAURANT_EVENT_FAILURE,
+  GET_EVENTS_BY_ALL_RESTAURANT_REQUEST,GET_EVENTS_BY_ALL_RESTAURANT_SUCCESS,GET_EVENTS_BY_ALL_RESTAURANT_FAILURE,
 } from "./ActionTypes";
 
 // Get events by restaurantId
@@ -67,6 +68,27 @@ export const deleteRestaurantEvent = ({ eventId, jwt }) => {
         payload: error?.response?.data?.message || error.message,
       });
       console.log("delete event error", error);
+    }
+  };
+};
+
+export const getEventsByAllRestaurant = ({ jwt }) => {
+  return async (dispatch) => {
+    dispatch({ type: GET_EVENTS_BY_ALL_RESTAURANT_REQUEST });
+    try {
+      const { data } = await api.get(`/api/event/all`, {
+        headers: {
+          Authorization: `Bearer ${jwt}`,
+        },
+      });
+      console.log("all restaurant events", data);
+      dispatch({ type: GET_EVENTS_BY_ALL_RESTAURANT_SUCCESS, payload: data });
+    } catch (error) {
+      dispatch({
+        type: GET_EVENTS_BY_ALL_RESTAURANT_FAILURE,
+        payload: error?.response?.data?.message || error.message,
+      });
+      console.log("get events by all restaurant error", error);
     }
   };
 };

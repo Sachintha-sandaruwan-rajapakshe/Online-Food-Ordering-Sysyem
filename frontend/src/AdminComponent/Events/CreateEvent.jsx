@@ -31,16 +31,17 @@ const CreateEvent = () => {
     initialValues,
     onSubmit: (values) => {
   const reqData = {
-    eventName: values.name,   
+    eventName: values.name,
     location: values.location,
-    startDate: values.startAt ? values.startAt.format("MM/DD/YYYY hh:mm A") : null,
-    endDate: values.endAt ? values.endAt.format("MM/DD/YYYY hh:mm A") : null,
-    images: values.images,     
+    startDate: values.startAt ? values.startAt.toISOString() : null,   // 👈 මෙහෙම යවන්න
+    endDate: values.endAt ? values.endAt.toISOString() : null,         // 👈 මෙහෙම යවන්න
+    images: values.images,
   };
 
   console.log('Submitted data:', reqData);
-   dispatch(createEvent({ restaurentId: restaurant.userRestaurant.id, reqData, jwt }));
+  dispatch(createEvent({ restaurentId: restaurant.userRestaurant.id, reqData, jwt }));
 }
+
   });
 
   const handleImageChange = async (e) => {

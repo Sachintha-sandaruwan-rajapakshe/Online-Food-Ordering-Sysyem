@@ -29,6 +29,7 @@ const restaurantReducer = (state = initialState, action) => {
     case actionTypes.DELETE_EVENTS_REQUEST:
     case actionTypes.CREATE_CATEGORY_REQUEST:
     case actionTypes.GET_RESTAURANT_CATEGORIES_REQUEST:
+    case actionTypes.DELETE_CATEGORY_REQUEST: // added
       return {
         ...state,
         loading: true,
@@ -133,6 +134,15 @@ const restaurantReducer = (state = initialState, action) => {
         categories: action.payload,
       };
 
+    case actionTypes.DELETE_CATEGORY_SUCCESS: // added
+      return {
+        ...state,
+        loading: false,
+        categories: state.categories.filter(
+          (item) => item.id !== action.payload.id
+        ),
+      };
+
     // ======================
     // FAILURES
     // ======================
@@ -149,6 +159,7 @@ const restaurantReducer = (state = initialState, action) => {
     case actionTypes.DELETE_EVENTS_FAILURE:
     case actionTypes.CREATE_CATEGORY_FAILURE:
     case actionTypes.GET_RESTAURANT_CATEGORIES_FAILURE:
+    case actionTypes.DELETE_CATEGORY_FAILURE: // added
       return {
         ...state,
         loading: false,

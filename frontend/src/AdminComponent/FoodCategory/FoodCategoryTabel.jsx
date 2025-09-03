@@ -5,6 +5,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import ConstructionIcon from '@mui/icons-material/Construction';
 import CreateFoodCategoryForm from './CreateFoodCategoryForm';
 import { useDispatch, useSelector } from 'react-redux';
+import { deleteCategory } from '../../component/State/Restaurent/Action';
 
 const style = {
   position: 'absolute',
@@ -31,6 +32,10 @@ const FoodCategoryTable = () => {
   const handleClose = () => setOpen(false);
 
   console.log('restaurant : ',restaurant)
+
+  const handelDeleteCategory=(id)=>{
+    dispatch(deleteCategory({ categoryId:id, jwt }))
+  }
   return (
     <Box sx={{paddingLeft:"1rem"}}>
         <Card className="px-5">
@@ -59,24 +64,22 @@ const FoodCategoryTable = () => {
         <TableHead>
           <TableRow>
             <TableCell>Id</TableCell>
-            <TableCell align="left">Name</TableCell>            
-            <TableCell align="right">modify</TableCell>
+            <TableCell align="left">Name</TableCell>
             <TableCell align="right">Delete</TableCell>
            
           </TableRow>
         </TableHead>
         <TableBody>
-          {restaurant.categories?.map((row,index) => (
+          {restaurant.categories?.map((item,index) => (
             <TableRow
-              key={row.name}
+              key={item.id}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <TableCell component="th" scope="row">
                 {index+1}
               </TableCell>
-              <TableCell align="left">{row.name}</TableCell>
-              <TableCell align="right">{<IconButton> <ConstructionIcon sx={{color:"Green"}}/> </IconButton>}</TableCell>
-              <TableCell align="right">{<IconButton> <DeleteIcon sx={{color:"RED"}}/> </IconButton>}</TableCell>
+              <TableCell align="left">{item.name}</TableCell>
+              <TableCell align="right">{<IconButton onClick={()=>handelDeleteCategory(item.id)}> <DeleteIcon sx={{color:"RED"}}/> </IconButton>}</TableCell>
             </TableRow>
           ))}
         </TableBody>

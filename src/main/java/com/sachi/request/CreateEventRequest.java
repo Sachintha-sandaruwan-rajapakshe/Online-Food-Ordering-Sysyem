@@ -1,14 +1,14 @@
 package com.sachi.request;
 
-import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class CreateEventRequest {
 	
 	private String location;
 	private String eventName;
-	private String startDate;
-	private String endDate;
+	private LocalDateTime startDate;
+	private LocalDateTime endDate;
 	private List<String>images;
 	
 	public String getLocation() {
@@ -23,16 +23,16 @@ public class CreateEventRequest {
 	public void setEventName(String eventName) {
 		this.eventName = eventName;
 	}
-	public String getStartDate() {
+	public LocalDateTime getStartDate() {
 		return startDate;
 	}
-	public void setStartDate(String startDate) {
+	public void setStartDate(LocalDateTime startDate) {
 		this.startDate = startDate;
 	}
-	public String getEndDate() {
+	public LocalDateTime getEndDate() {
 		return endDate;
 	}
-	public void setEndDate(String endDate) {
+	public void setEndDate(LocalDateTime endDate) {
 		this.endDate = endDate;
 	}
 	

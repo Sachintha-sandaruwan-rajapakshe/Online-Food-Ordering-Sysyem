@@ -22,7 +22,9 @@ export const ingredientReducer = (state = initialState, action) => {
       return {
         ...state,
         stockUpdatedIngredient: action.payload,
-        ingredients:state.ingredients.map((item)=>item.id === action.payload.id?action.payload:item),
+        ingredients: state.ingredients.map((item) =>
+          item.id === action.payload.id ? action.payload : item
+        ),
         loading: false,
         error: null,
       };
@@ -30,6 +32,8 @@ export const ingredientReducer = (state = initialState, action) => {
     case actionTypes.CREATE_INGREDIENT_REQUEST:
     case actionTypes.CREATE_INGREDIENT_CATEGORY_REQUEST:
     case actionTypes.GET_INGREDIENT_CATEGORY_REQUEST:
+    case actionTypes.DELETE_INGREDIENT_CATEGORY_REQUEST: // added
+    case actionTypes.DELETE_INGREDIENT_REQUEST:
       return {
         ...state,
         loading: true,
@@ -60,9 +64,31 @@ export const ingredientReducer = (state = initialState, action) => {
         error: null,
       };
 
+    case actionTypes.DELETE_INGREDIENT_CATEGORY_SUCCESS: // added
+      return {
+        ...state,
+        loading: false,
+        ingredientCategories: state.ingredientCategories.filter(
+          (item) => item.id !== action.payload.id
+        ),
+        error: null,
+      };
+
+    case actionTypes.DELETE_INGREDIENT_SUCCESS: // added
+      return {
+        ...state,
+        loading: false,
+        ingredients: state.ingredients.filter(
+          (item) => item.id !== action.payload.id
+        ),
+        error: null,
+      };
+
     case actionTypes.CREATE_INGREDIENT_FAILURE:
     case actionTypes.CREATE_INGREDIENT_CATEGORY_FAILURE:
     case actionTypes.GET_INGREDIENT_CATEGORY_FAILURE:
+    case actionTypes.DELETE_INGREDIENT_CATEGORY_FAILURE: // added
+    case actionTypes.DELETE_INGREDIENT_FAILURE:
       return {
         ...state,
         loading: false,
@@ -73,5 +99,3 @@ export const ingredientReducer = (state = initialState, action) => {
       return state;
   }
 };
-
-

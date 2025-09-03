@@ -1,8 +1,10 @@
 package com.sachi.service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import com.sachi.Model.Event;
@@ -43,6 +45,23 @@ public class EventServiceImpl implements EventService{
 	    return event; // delete කල Event object එක return කරනවා
 	}
 
+	@Override
+	public List<Event> getEventsByAllRestaurant() throws Exception {
+		return eventRepository.findAll();
+	}
+	
+	// ---------------- Automatic Delete Scheduler ----------------
+    @Scheduled(cron = "0 0 0 * * ?") // මැධ්‍යම රාත්‍රියේ (12AM) දවස්කට එක වතාවක් run වෙයි
+    public void removeExpiredEvents() {
+        LocalDate today = LocalDate.now();
+        List<Event> expiredEvents = eventRepository.findByEndDateBefore(today);
+
+        if (!expiredEvents.isEmpty()) {
+            eventRepository.deleteAll(expiredEvents);
+            System.out.println("Expired events removed: " + expiredEvents.size());
+        }
+    }
+	
 
 	
 	

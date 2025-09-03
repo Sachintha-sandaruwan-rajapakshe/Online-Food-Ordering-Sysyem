@@ -39,6 +39,17 @@ public class CategoryServiceImpl implements CategoryService{
 		}
 		return optionalCategory.get();
 	}
+
+	@Override
+	public Category deleteCategoryByCategoryId(Long id) throws Exception {
+	    Optional<Category> optionalCategory = categoryRepository.findById(id);
+	    if(optionalCategory.isEmpty()) {
+	        throw new Exception("Category not found!");
+	    }
+	    categoryRepository.delete(optionalCategory.get()); // delete from DB
+	    return optionalCategory.get(); // return deleted category
+	}
+
 	
 
 }

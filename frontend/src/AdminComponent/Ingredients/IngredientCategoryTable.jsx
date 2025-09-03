@@ -5,7 +5,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import ConstructionIcon from '@mui/icons-material/Construction';
 import CreateIngredientCategoryForm from './CreateIngredientCategoryForm';
 import { useDispatch, useSelector } from 'react-redux';
-import { getIngredientCategory } from '../../component/State/Ingredients/Action';
+import { deleteIngredientsCategory, getIngredientCategory } from '../../component/State/Ingredients/Action';
 
 const order=[1,1,1,1]
 
@@ -31,7 +31,11 @@ const IngredientCategoryTable = () => {
 
   useEffect(()=>{
      dispatch(getIngredientCategory({ id:restaurant.userRestaurant?.id, jwt }));
-  },[])
+  },[]);
+
+  const handelDeleteIngredientCategory=(id)=>{
+    dispatch(deleteIngredientsCategory({categoryId:id, jwt}))
+  }
 
  
   return (
@@ -79,7 +83,7 @@ const IngredientCategoryTable = () => {
               </TableCell>
               <TableCell align="left">{row.name}</TableCell>
               <TableCell align="right">{<IconButton> <ConstructionIcon sx={{color:"Green"}}/> </IconButton>}</TableCell>
-              <TableCell align="right">{<IconButton> <DeleteIcon sx={{color:"RED"}}/> </IconButton>}</TableCell>
+              <TableCell align="right">{<IconButton onClick={()=>handelDeleteIngredientCategory(row.id)}> <DeleteIcon sx={{color:"RED"}}/> </IconButton>}</TableCell>
             </TableRow>
           ))}
         </TableBody>

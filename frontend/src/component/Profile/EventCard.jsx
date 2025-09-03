@@ -2,26 +2,31 @@
 import { Card, CardActions, CardContent, CardMedia, IconButton, Typography } from '@mui/material'
 import DeleteIcon from '@mui/icons-material/Delete';
 import React from 'react'
+import { format } from 'date-fns';   // <-- මේක add කරන්න
 
-const EventCard = () => {
+const EventCard = ({item}) => {
+   const formatDate = (dateString) => {
+      if (!dateString) return "";
+      return format(new Date(dateString), "MMMM dd, yyyy hh:mm a");
+    };
   return (
     <div>
       <Card sx={{width:278}}>
         <CardMedia 
-            image='https://cdn.pixabay.com/photo/2022/08/27/14/08/mix-grill-7414547_960_720.jpg'
+            image={item.images?.[0]}
             sx={{ height: 345 }}
         />
         <CardContent>
             <Typography variant='h5' component={'div'} color='red'>
-                Sri Lankan Fast Food
+                {item.eventName}
             </Typography>
             <Typography variant='body2' component={'div'}>
                 50% off your first order
             </Typography>
             <div className='py-2 space-y-2'>
-              <p className='text-yellow-400'>{'Sri lankan'}</p>
-              <p className='text-sm text-blue-200'>April 14.2025 12:00 AM</p>
-              <p className='text-sm text-red-500'>April 30.2025 12:00 PM</p>
+              <p className='text-yellow-400'>{item.location}</p>
+              <p className='text-sm text-blue-200'>{formatDate(item.startDate)}</p>
+                <p className='text-sm text-red-500'>{formatDate(item.endDate)}</p>
             </div>
         </CardContent>
 

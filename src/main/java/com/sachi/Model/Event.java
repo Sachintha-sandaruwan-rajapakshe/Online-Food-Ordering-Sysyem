@@ -1,9 +1,11 @@
 package com.sachi.Model;
 
-import java.sql.Date;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -18,10 +20,11 @@ public class Event {
 	private Long id;
 	private String location;
 	private String eventName;
-	private String startDate;
-	private String endDate;
+	private LocalDateTime startDate;
+	private LocalDateTime endDate;
 	@ManyToOne
 	private Restaurent restaurent;
+	@ElementCollection
 	private List<String>images;
 
 	public Long getId() {
@@ -42,16 +45,16 @@ public class Event {
 	public void setEventName(String eventName) {
 		this.eventName = eventName;
 	}
-	public String getStartDate() {
+	public LocalDateTime getStartDate() {
 		return startDate;
 	}
-	public void setStartDate(String string) {
+	public void setStartDate(LocalDateTime string) {
 		this.startDate = string;
 	}
-	public String getEndDate() {
+	public LocalDateTime getEndDate() {
 		return endDate;
 	}
-	public void setEndDate(String endDate) {
+	public void setEndDate(LocalDateTime endDate) {
 		this.endDate = endDate;
 	}
 	public Restaurent getRestaurent() {

@@ -66,6 +66,16 @@ public class EventController {
 		return new ResponseEntity<>(events,HttpStatus.OK);
 	}
 	
+	@GetMapping("/event/all")
+	public ResponseEntity<List<Event>> getEventsByAllRestaurant(
+	        @RequestHeader("Authorization") String jwt) throws Exception {
+
+	    User user = userService.findUserByJwtToken(jwt);
+	    List<Event> events = eventService.getEventsByAllRestaurant();
+
+	    return new ResponseEntity<>(events, HttpStatus.OK);
+	}
+	
 	
 	
 	
